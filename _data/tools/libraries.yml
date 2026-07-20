@@ -1,0 +1,91 @@
+# Libraries
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: nipy
+  description: Foundational Python package for fMRI analysis including model fitting, statistical testing, and signal processing.
+  url: https://github.com/nipy/nipy
+  github: nipy/nipy
+  language: Python
+  date_added: 2026-06-20
+  modality: MRI
+  submodality: fMRI
+- name: nitime
+  description: Python library for timeseries analysis of neuroscience data, with tools for spectral analysis, coherence, and granger causality.
+  url: https://github.com/nipy/nitime
+  github: nipy/nitime
+  language: Python
+  date_added: 2026-06-20
+  modality: MRI
+  submodality: fMRI
+- name: PyBIDS
+  description: Python library for querying, loading, and writing BIDS-formatted datasets.
+  url: https://github.com/bids-standard/pybids
+  github: bids-standard/pybids
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Nibabel
+  description: Python library for reading and writing common neuroimaging file formats including NIfTI, GIFTI, and CIFTI.
+  url: https://github.com/nipy/nibabel
+  github: nipy/nibabel
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: neuropythy
+  description: Python library for cortical surface mesh analysis, registration, and retinotopic mapping; complements nibabel with tools for working with FreeSurfer surfaces.
+  url: https://github.com/noahbenson/neuropythy
+  github: noahbenson/neuropythy
+  language: Python
+  date_added: 2026-07-17
+  modality: MRI
+  submodality: structural
+- name: epgpy
+  description: Python library for simulating MRI signals using the Extended Phase Graph (EPG) formalism, with extensions for diffusion, magnetization transfer, and sequence optimization.
+  url: https://github.com/py-baudin/epgpy
+  github: py-baudin/epgpy
+  language: Python
+  modality: MRI
+  submodality: multi
+  date_added: 2026-06-19
+
+- name: KomaMRI.jl
+  description: GPU-accelerated, Pulseq-compatible MRI simulation framework for designing and testing pulse sequences.
+  url: https://github.com/JuliaHealth/KomaMRI.jl
+  github: JuliaHealth/KomaMRI.jl
+  language: Julia
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: MONAI
+  description: PyTorch-based open-source framework for deep learning in medical imaging, with pre-built transforms, networks, and training workflows for MRI segmentation and classification.
+  url: https://github.com/Project-MONAI/MONAI
+  github: Project-MONAI/MONAI
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: qMRLab
+  description: MATLAB/Python toolbox for simulation, analysis, and visualization of quantitative MRI data including T1, T2, magnetization transfer, and diffusion models.
+  url: https://github.com/qMRLab/qMRLab
+  github: qMRLab/qMRLab
+  language: MATLAB/Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: ClinicaDL
+  description: Python library for reproducible deep learning in neuroimaging, providing pipelines for data preparation, training, and evaluation on MRI and PET.
+  url: https://github.com/aramis-lab/clinicadl
+  github: aramis-lab/clinicadl
+  language: Python
+  date_added: 2026-07-13
+  modality: MRI
+  submodality: multi

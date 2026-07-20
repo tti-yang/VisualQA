@@ -1,0 +1,206 @@
+# Statistical Analysis tools
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: SPM
+  description: Statistical parametric mapping framework for fMRI and voxel-based morphometry analysis.
+  url: https://www.fil.ion.ucl.ac.uk/spm
+  language: MATLAB
+  date_added: 2026-06-16
+
+- name: Nilearn
+  description: Machine learning and statistical tools for neuroimaging data, including GLMs and multivariate decoding.
+  url: https://github.com/nilearn/nilearn
+  github: nilearn/nilearn
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: Fitlins
+  description: Tool for estimating linear models defined by the BIDS Stats-Models specification, applied to BIDS-formatted datasets.
+  url: https://github.com/poldracklab/fitlins
+  github: poldracklab/fitlins
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: NiMARE
+  description: Python library for coordinate- and image-based neuroimaging meta-analysis, implementing ALE, MKDA, and other methods.
+  url: https://github.com/neurostuff/NiMARE
+  github: neurostuff/NiMARE
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: FSL Randomise
+  description: Permutation-based nonparametric inference for neuroimaging group-level statistics.
+  url: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise
+  language: C++
+  date_added: 2026-06-16
+
+- name: ENIGMA VBM
+  description: Fully automated DARTEL VBM pipeline with QC and sensitivity analyses, standardized for multi-site mega-analysis.
+  url: https://sites.google.com/view/enigmavbm
+  language: MATLAB
+  date_added: 2026-06-16
+
+- name: ENIGMA Toolbox
+  description: Python/MATLAB ecosystem for accessing 80+ ENIGMA working group datasets and contextualizing findings with connectomic and transcriptomic data.
+  url: https://github.com/MICA-MNI/ENIGMA
+  github: MICA-MNI/ENIGMA
+  language: Python/MATLAB
+  date_added: 2026-06-16
+
+- name: IBMMA
+  description: Image-based meta- and mega-analysis framework for mass-univariate analysis across voxel, vertex, and connectome features from multi-site data.
+  url: https://github.com/sundelinustc/IBMMA
+  github: sundelinustc/IBMMA
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: Neuromaps
+  description: Maps brain annotations onto standard surfaces and compares them against transcriptomic and receptor reference atlases.
+  url: https://github.com/netneurolab/neuromaps
+  github: netneurolab/neuromaps
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: BrainSMASH
+  description: Generates spatially autocorrelation-preserving surrogate brain maps for null hypothesis testing of brain-behavior correlations.
+  url: https://github.com/murraylab/brainsmash
+  github: murraylab/brainsmash
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: PALM
+  description: Permutation analysis of linear models for neuroimaging; supports complex designs, exchangeability blocks, sign-flipping, and TFCE.
+  url: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/PALM
+  github: andersonwinkler/PALM
+  language: MATLAB
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Neurosynth Compose
+  description: Web platform for reproducible neuroimaging meta-analysis with PRISMA-guided study curation, integrated with NeuroStore.
+  url: https://compose.neurosynth.org
+  language: Web
+  date_added: 2026-06-17
+  modality: MRI
+  submodality: fMRI
+- name: GingerALE
+  description: Coordinate-based meta-analysis using Activation Likelihood Estimation to identify consistent activation foci across studies.
+  url: https://www.brainmap.org/ale
+  language: Java
+  date_added: 2026-06-17
+  modality: MRI
+  submodality: fMRI
+- name: SDM-PSI
+  description: Seed-based d Mapping with Permutation of Subject Images — hybrid CBMA tool that combines coordinate and image-based data.
+  url: https://www.sdmproject.com
+  language: MATLAB
+  date_added: 2026-06-17
+  modality: MRI
+  submodality: fMRI
+- name: SnPM
+  description: Nonparametric permutation testing toolbox for SPM; controls for multiple comparisons without distributional assumptions.
+  url: https://github.com/SnPM-toolbox/SnPM-devel
+  github: SnPM-toolbox/SnPM-devel
+  language: MATLAB
+  date_added: 2026-06-17
+  modality: MRI
+  submodality: fMRI
+- name: DiagnoseHarmonisation (DHARM)
+  description: In-development library for applying and assessing MRI harmonisation algorithms at the summary-measure level; also a centralised reference for validated harmonisation methods from the literature.
+  url: https://jake-turnbull.github.io/HarmonisationDiagnostics/
+  github: Jake-Turnbull/HarmonisationDiagnostics
+  added_by: Jake-Turnbull
+  added_by_github: Jake-Turnbull
+  language: Python
+  modality: MRI
+  submodality: multi
+  date_added: 2026-06-18
+
+- name: TAPAS
+  description: Suite of computational psychiatry tools (HGF, rDCM, PhysIO, and more) now maintained as individual packages under the ComputationalPsychiatry GitHub organization.
+  url: https://github.com/ComputationalPsychiatry
+  language: MATLAB/Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: fMRI
+- name: BrainIAK
+  description: Python toolkit for advanced fMRI analysis including shared response modelling, Bayesian RSA, and searchlight decoding.
+  url: https://github.com/brainiak/brainiak
+  github: brainiak/brainiak
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: fMRI
+- name: FEMA
+  description: Fast and efficient mixed-effects algorithm for mass-univariate whole-brain analysis; designed for large-sample studies such as ABCD with voxelwise, vertexwise, and connectivity matrix support.
+  url: https://github.com/cmig-research-group/cmig_tools
+  github: cmig-research-group/cmig_tools
+  language: MATLAB
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: ENIGMA Disease Working Group Stats
+  description: Batch GLM and effect-size scripts for ROI and vertexwise meta-analysis across ENIGMA disease working groups.
+  url: https://github.com/ENIGMA-git/ENIGMADiseaseWorkingGroupStats
+  github: ENIGMA-git/ENIGMADiseaseWorkingGroupStats
+  language: R
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: PCNtoolkit
+  description: Python toolbox for probabilistic normative modelling of neuroimaging and clinical data, estimating individualized deviation scores from a reference population.
+  url: https://github.com/predictive-clinical-neuroscience/PCNtoolkit
+  github: predictive-clinical-neuroscience/PCNtoolkit
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: multiverse
+  description: R package for declaring and running multiverse analyses — systematically exploring all reasonable analytical choices and summarising their effect on results.
+  url: https://github.com/MUCollective/multiverse
+  github: MUCollective/multiverse
+  language: R
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: VertexWiseR
+  description: R package for extracting, analyzing, and visualizing cortical and subcortical vertex-wise data from FreeSurfer, CAT12, and fMRIPrep outputs.
+  url: https://github.com/CogBrainHealthLab/VertexWiseR
+  github: CogBrainHealthLab/VertexWiseR
+  added_by: chabld
+  added_by_github: chabld
+  language: R
+  date_added: 2026-06-23
+  modality: MRI
+  submodality: structural
+- name: SubCortexMesh
+  description: Converts subcortical segmentation volumes to surface meshes and computes vertex-wise metrics for surface-based analysis.
+  url: https://github.com/chabld/SubCortexMesh
+  github: chabld/SubCortexMesh
+  added_by: chabld
+  added_by_github: chabld
+  language: Python
+  date_added: 2026-06-23
+  modality: MRI
+  submodality: structural
+- name: CanlabCore
+  description: Object-oriented MATLAB toolbox for fMRI data analysis, including GLM, mediation, and machine learning on brain images; the core of the Canlab toolboxes.
+  url: https://github.com/canlab/CanlabCore
+  github: canlab/CanlabCore
+  language: MATLAB
+  date_added: 2026-07-13
+  modality: MRI
+  submodality: fMRI

@@ -1,0 +1,313 @@
+# Preprocessing tools
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: fMRIPrep
+  description: Robust preprocessing pipeline for task-based and resting-state fMRI with automated decision-making and visual QC reports.
+  url: https://github.com/nipreps/fmriprep
+  github: nipreps/fmriprep
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: dMRIPrep
+  description: Preprocessing pipeline for diffusion MRI following the fMRIPrep design framework.
+  url: https://github.com/nipreps/dmriprep
+  github: nipreps/dmriprep
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: diffusion
+- name: sMRIPrep
+  description: Structural MRI preprocessing pipeline; used standalone or as the anatomical component of fMRIPrep.
+  url: https://github.com/nipreps/smriprep
+  github: nipreps/smriprep
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: Nibabies
+  description: fMRIPrep adapted for infant brain MRI, with templates and workflows suited to developing brains.
+  url: https://github.com/nipreps/nibabies
+  github: nipreps/nibabies
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: HALFpipe
+  description: Containerized fMRI pipeline wrapping fMRIPrep with smoothing, filtering, confound regression, and interactive QA.
+  url: https://github.com/HALFpipe/HALFpipe
+  github: HALFpipe/HALFpipe
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: FreeSurfer
+  description: Cortical surface reconstruction, parcellation, and cortical thickness analysis from structural MRI.
+  url: https://freesurfer.net
+  language: C++
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: CAT12
+  description: SPM toolbox for voxel-based and surface-based morphometry of structural MRI data.
+  url: https://neuro-jena.github.io/cat
+  language: MATLAB
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: FSL
+  description: Comprehensive library for analysis of fMRI, structural, and diffusion MRI data.
+  url: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki
+  language: C++
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: AFNI
+  description: Suite of programs for fMRI preprocessing, regression modelling, and statistical analysis.
+  url: https://afni.nimh.nih.gov
+  language: C
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: Tedana
+  description: Multi-echo fMRI denoising — separates BOLD signal from noise using T2* decay across echo times.
+  url: https://github.com/ME-ICA/tedana
+  github: ME-ICA/tedana
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: FastSurfer
+  description: Deep learning-based cortical surface reconstruction and parcellation; produces FreeSurfer-compatible output in minutes.
+  url: https://github.com/Deep-MI/FastSurfer
+  github: Deep-MI/FastSurfer
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: SynthStrip
+  description: Skull-stripping tool using deep learning; works across contrasts and resolutions without retraining.
+  url: https://surfer.nmr.mgh.harvard.edu/docs/synthstrip
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: SynthSeg
+  description: Brain segmentation via deep learning trained on synthetic data; handles any contrast and resolution without retraining.
+  url: https://github.com/BBillot/SynthSeg
+  github: BBillot/SynthSeg
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: C-PAC
+  description: Configurable Pipeline for the Analysis of Connectomes — flexible fMRI preprocessing and connectivity analysis with GUI configuration.
+  url: https://github.com/FCP-INDI/C-PAC
+  github: FCP-INDI/C-PAC
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: ASLPrep
+  description: Arterial spin labeling preprocessing pipeline from the NiPreps family, producing CBF maps and QC reports.
+  url: https://github.com/PennLINC/aslprep
+  github: PennLINC/aslprep
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: ASL
+- name: Mindboggle
+  description: Automated brain morphometry and cortical labeling; computes shape measures from FreeSurfer and ANTs surface outputs.
+  url: https://github.com/nipy/mindboggle
+  github: nipy/mindboggle
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: Nighres
+  description: High-resolution brain MRI processing tools optimized for 7T data, including laminar and columnar analysis.
+  url: https://github.com/nighres/nighres
+  github: nighres/nighres
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: fMRIDenoise
+  description: Automated pipeline for benchmarking fMRI denoising strategies across multiple confound models and QC metrics.
+  url: https://github.com/compneuro-ncu/fmridenoise
+  github: compneuro-ncu/fmridenoise
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: LayNii
+  description: Layer-fMRI analysis tools for cortical layerification, columnarization, layer-smoothing, and VASO analysis.
+  url: https://github.com/layerfMRI/LayNii
+  github: layerfMRI/LayNii
+  language: C++
+  date_added: 2026-06-17
+  modality: MRI
+  submodality: fMRI
+- name: TrUE-Net
+  description: Triplanar U-Net ensemble for WMH segmentation on FLAIR, with pretrained models and fine-tuning support.
+  url: https://github.com/v-sundaresan/truenet
+  github: v-sundaresan/truenet
+  language: Python
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: LST-AI
+  description: Deep learning ensemble (3× 3D U-Net) for MS and WMH lesion segmentation with automatic McDonald criteria annotation.
+  url: https://github.com/CompImg/LST-AI
+  github: CompImg/LST-AI
+  language: Python
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: SHIVA-WMH
+  description: 3D U-Net for WMH segmentation optimized for detecting small punctate lesions in younger subjects.
+  url: https://github.com/pboutinaud/SHIVA_WMH
+  github: pboutinaud/SHIVA_WMH
+  language: Python
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: segcsvd
+  description: CNN-based WMH segmentation on FLAIR and perivascular space segmentation on T1, using SynthSeg-derived anatomical context.
+  url: https://github.com/AICONSlab/segcsvd
+  github: AICONSlab/segcsvd
+  language: Python
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: HyperMapp3r
+  description: Bayesian CNN for WMH segmentation with uncertainty estimation.
+  url: https://github.com/AICONSlab/HyperMapp3r
+  github: AICONSlab/HyperMapp3r
+  language: Python
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: DeepWMH
+  description: Annotation-free WMH segmentation using deep learning trained without manually labeled data.
+  url: https://github.com/lchdl/DeepWMH
+  github: lchdl/DeepWMH
+  language: Python
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: wmh_seg
+  description: Transformer-based U-Net for WMH segmentation validated across 1.5T, 3T, and 7T FLAIR.
+  url: https://github.com/jinghangli98/wmh_seg
+  github: jinghangli98/wmh_seg
+  language: Python
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: W2MHS
+  description: Random forest-based WMH segmentation and quantification toolbox for aging and Alzheimer's research.
+  url: https://github.com/SichaoYang/W2MHS
+  github: SichaoYang/W2MHS
+  language: MATLAB
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: LST
+  description: SPM toolbox for lesion segmentation with lesion growth (LGA) and lesion prediction (LPA) algorithms.
+  url: https://www.applied-statistics.de/lst.html
+  language: MATLAB
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: UBO Detector
+  description: Cluster-based fully automated WMH extraction pipeline with regional quantification in lobes and arterial territories.
+  url: https://github.com/cheba-nil/CNS
+  github: cheba-nil/CNS
+  language: MATLAB
+  modality: MRI
+  submodality: structural
+  date_added: 2026-06-18
+
+- name: SIAM
+  description: Contrast-, resolution-, and pathology-robust head tissue segmentation trained from synthetic data; handles T1, T2, and FLAIR volumes.
+  url: https://github.com/romainVala/SIAM
+  github: romainVala/SIAM
+  language: Python
+  modality: MRI
+  submodality: multi
+  date_added: 2026-06-19
+
+- name: intensity-normalization
+  description: Collection of MRI intensity normalization methods including Z-score, Nyul histogram matching, WhiteStripe, and deep learning approaches.
+  url: https://github.com/jcreinhold/intensity-normalization
+  github: jcreinhold/intensity-normalization
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: micapipe
+  description: Multimodal MRI processing pipeline for cortical and subcortical analysis of structural, diffusion, and functional data.
+  url: https://github.com/MICA-MNI/micapipe
+  github: MICA-MNI/micapipe
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: Spinal Cord Toolbox
+  description: Comprehensive open-source toolbox for processing and analysis of spinal cord MRI, covering registration, segmentation, and template-based analysis.
+  url: https://github.com/spinalcordtoolbox/spinalcordtoolbox
+  github: spinalcordtoolbox/spinalcordtoolbox
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: structural
+- name: fmripost-aroma
+  description: BIDS App for running ICA-AROMA denoising on fMRIPrep derivatives, removing motion-related noise components from functional MRI.
+  url: https://github.com/nipreps/fmripost-aroma
+  github: nipreps/fmripost-aroma
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: fMRI
+- name: hMRI toolbox
+  description: SPM toolbox for creating quantitative MRI maps (T1, MT, PD, R2*) from multi-parameter mapping acquisitions for in vivo histology.
+  url: https://github.com/hMRI-group/hMRI-toolbox
+  github: hMRI-group/hMRI-toolbox
+  language: MATLAB
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: structural
+- name: QUIT
+  description: Set of tools for processing quantitative MR images, with utilities and fitting methods for T1, T2, and magnetization transfer.
+  url: https://github.com/spinicist/QUIT
+  github: spinicist/QUIT
+  language: C++
+  date_added: 2026-06-21
+  modality: MRI
+  submodality: structural
+- name: GOUHFI
+  description: Contrast- and resolution-agnostic segmentation tool for subcortical and cortical parcellation, optimised for ultra-high field MRI (>3T).
+  url: https://github.com/mafortin/GOUHFI
+  github: mafortin/GOUHFI
+  language: Python
+  date_added: 2026-06-23
+  modality: MRI
+  submodality: structural
+  added_by: mafortin
+  added_by_github: mafortin

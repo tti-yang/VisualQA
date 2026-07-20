@@ -1,0 +1,119 @@
+# Visualization tools
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: FSLeyes
+  description: Image viewer from the FSL team for overlaying brain images, statistical maps, and atlases.
+  url: https://github.com/pauldmccarthy/fsleyes
+  github: pauldmccarthy/fsleyes
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: wb_view
+  description: Connectome Workbench viewer for surface and volume neuroimaging data, designed for HCP-style CIFTI files.
+  url: https://www.humanconnectome.org/software/connectome-workbench
+  github: Washington-University/workbench
+  language: C++
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Nilearn plotting
+  description: Python functions for plotting brain maps, glass brains, and statistical overlays on MRI templates.
+  url: https://github.com/nilearn/nilearn
+  github: nilearn/nilearn
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: NiReports
+  description: Visual reporting library that generates the QC HTML pages used by fMRIPrep and MRIQC.
+  url: https://github.com/nipreps/nireports
+  github: nipreps/nireports
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: ITK-SNAP
+  description: Interactive tool for segmentation of 3D medical images with manual editing and automatic active contour methods.
+  url: https://github.com/pyushkevich/itksnap
+  github: pyushkevich/itksnap
+  language: C++
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: ggseg
+  description: R package for plotting brain atlas segmentations as ggplot2 geoms, supporting cortical and subcortical parcellations.
+  url: https://github.com/ggseg/ggseg
+  github: ggseg/ggseg
+  language: R
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: structural
+- name: MRIcroGL
+  description: GPU-accelerated volume rendering and visualization of NIfTI brain images with MIP and raycasting modes.
+  url: https://github.com/rordenlab/MRIcroGL
+  github: rordenlab/MRIcroGL
+  language: Pascal
+  date_added: 2026-06-17
+  modality: MRI
+  submodality: multi
+- name: TrackVis
+  description: Visualizes and analyzes fiber tract data from diffusion MRI tractography with interactive 3D display.
+  url: https://trackvis.org
+  language: C++
+  modality: MRI
+  submodality: diffusion
+  date_added: 2026-06-18
+  added_by: marcotag93
+  added_by_github: marcotag93
+
+- name: TractEdit
+  description: Interactive tool for virtual dissection and manual refinement of diffusion MRI tractography.
+  url: https://github.com/marcotag93/TractEdit
+  github: marcotag93/TractEdit
+  added_by: marcotag93
+  added_by_github: marcotag93
+  language: Python
+  modality: MRI
+  submodality: diffusion
+  date_added: 2026-06-18
+
+- name: PySurfer
+  description: Python library for visualization and statistical analysis of cortical surface representations from neuroimaging data.
+  url: https://github.com/nipy/PySurfer
+  github: nipy/PySurfer
+  language: Python
+  date_added: 2026-06-20
+  modality: MRI
+  submodality: structural
+- name: pycortex
+  description: Interactive 3D surface viewer for fMRI data; renders cortical activations on inflated and flat maps in a browser.
+  url: https://github.com/gallantlab/pycortex
+  github: gallantlab/pycortex
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: fMRI
+- name: brainchop
+  description: In-browser 3D brain MRI segmentation using deep learning; runs fully client-side without uploading data.
+  url: https://github.com/neuroneural/brainchop
+  github: neuroneural/brainchop
+  language: JavaScript
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: structural
+- name: 3D Slicer
+  description: Open-source platform for medical image informatics, processing, and 3D visualization; widely used for MRI segmentation and registration.
+  url: https://www.slicer.org
+  github: Slicer/Slicer
+  language: C++/Python
+  date_added: 2026-06-21
+  modality: MRI
+  submodality: multi

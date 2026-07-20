@@ -1,0 +1,40 @@
+# Registration & Normalization tools
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: ANTs
+  description: Toolkit for deformable image registration, segmentation, and normalization of brain images.
+  url: https://github.com/ANTsX/ANTs
+  github: ANTsX/ANTs
+  language: C++
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: FSL FLIRT/FNIRT
+  description: FSL tools for linear (FLIRT) and nonlinear (FNIRT) brain image registration.
+  url: https://fsl.fmrib.ox.ac.uk/fsl/fslwiki
+  language: C++
+  date_added: 2026-06-16
+
+- name: Templateflow
+  description: Version-controlled archive of brain MRI templates and atlases with a Python API for programmatic access.
+  url: https://github.com/templateflow/templateflow
+  github: templateflow/templateflow
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: ANTsPy
+  description: Python interface to ANTs for image registration, segmentation, and template building without writing C++ code.
+  url: https://github.com/ANTsX/ANTsPy
+  github: ANTsX/ANTsPy
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi

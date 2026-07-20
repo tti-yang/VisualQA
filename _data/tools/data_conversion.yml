@@ -1,0 +1,58 @@
+# Data Conversion tools
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: dcm2niix
+  description: Converts DICOM files to NIfTI format with BIDS-compatible JSON sidecar output.
+  url: https://github.com/rordenlab/dcm2niix
+  github: rordenlab/dcm2niix
+  language: C++
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: HeuDiConv
+  description: Flexible DICOM-to-BIDS converter using user-defined heuristic files to handle complex naming schemes.
+  url: https://github.com/nipy/heudiconv
+  github: nipy/heudiconv
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: BIDScoin
+  description: DICOM-to-BIDS conversion with a GUI-configurable mapping and a plugin system.
+  url: https://github.com/Donders-Institute/bidscoin
+  github: Donders-Institute/bidscoin
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: ReproIn
+  description: Scanner naming convention and setup for fully automatic BIDS-ready data organization at acquisition time.
+  url: https://github.com/ReproNim/reproin
+  github: ReproNim/reproin
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: BIDS Validator
+  description: Checks whether a dataset complies with the BIDS specification before sharing or pipeline submission.
+  url: https://github.com/bids-standard/bids-validator
+  github: bids-standard/bids-validator
+  language: JavaScript
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Dcm2Bids
+  description: Reorganises NIfTI files from dcm2niix into BIDS structure using a JSON configuration file.
+  url: https://github.com/UNFmontreal/Dcm2Bids
+  github: UNFmontreal/Dcm2Bids
+  language: Python
+  date_added: 2026-06-23
+  modality: MRI
+  submodality: multi

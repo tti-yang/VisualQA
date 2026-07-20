@@ -1,0 +1,103 @@
+# Workflow Managers
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: Nipoppy
+  description: Manages the full neuroimaging workflow from raw data through BIDS conversion, pipeline execution, and derivative extraction.
+  url: https://github.com/nipoppy/nipoppy
+  github: nipoppy/nipoppy
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Nipype
+  description: Pipeline framework wrapping FSL, SPM, FreeSurfer, and others into reproducible Python workflows.
+  url: https://github.com/nipy/nipype
+  github: nipy/nipype
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Brainlife.io
+  description: Cloud platform for running containerized neuroimaging pipelines with provenance tracking.
+  url: https://brainlife.io
+  language: Web
+  date_added: 2026-06-16
+
+- name: Neurodesk
+  description: Containerized neuroimaging desktop environment with 100+ analysis tools, accessible via browser.
+  url: https://github.com/NeuroDesk/neurodesktop
+  github: NeuroDesk/neurodesktop
+  language: Docker
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: DataLad
+  description: Distributed data management system for version-controlled datasets and reproducible analyses.
+  url: https://github.com/datalad/datalad
+  github: datalad/datalad
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Clinica
+  description: Software platform for clinical neuroimaging studies, with standardized pipelines for structural and diffusion MRI data.
+  url: https://aramislab.paris.inria.fr/clinica/docs/public/latest
+  github: aramis-lab/clinica
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: QuNex
+  description: Integrative platform for HCP-style processing of structural, functional, and diffusion MRI across large cohorts.
+  url: https://qunex.yale.edu
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: Pydra
+  description: Next-generation dataflow engine from the NiPype team for building reproducible, scalable neuroimaging workflows.
+  url: https://github.com/nipype/pydra
+  github: nipype/pydra
+  language: Python
+  date_added: 2026-06-17
+  modality: MRI
+  submodality: multi
+- name: Neurodocker
+  description: Generates custom Dockerfiles and Singularity recipes for reproducible neuroimaging environments with any combination of tools and versions.
+  url: https://github.com/ReproNim/neurodocker
+  github: ReproNim/neurodocker
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: Snakemake
+  description: Workflow management system for building reproducible, scalable data analysis pipelines in Python.
+  url: https://github.com/snakemake/snakemake
+  github: snakemake/snakemake
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: multi
+- name: fmriflows
+  description: Suite of dependent fMRI analysis pipelines covering anatomical and functional preprocessing, univariate GLM, and multivariate pattern analysis.
+  url: https://github.com/miykael/fmriflows
+  github: miykael/fmriflows
+  language: MATLAB
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: fMRI
+- name: NARPS Open Pipelines
+  description: Codebase reproducing the 70 analysis pipelines from the Botvinik-Nezer et al. (2020) Nature study on analytical variability in fMRI.
+  url: https://github.com/Inria-Empenn/narps_open_pipelines
+  github: Inria-Empenn/narps_open_pipelines
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: fMRI

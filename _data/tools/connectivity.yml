@@ -1,0 +1,60 @@
+# Connectivity tools
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: XCP-D
+  description: Robust fMRI post-processing pipeline for denoising, parcellation, and connectivity analysis; supports fMRIPrep, NiBabies, and HCP outputs.
+  url: https://github.com/PennLINC/xcp_d
+  github: PennLINC/xcp_d
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: CONN
+  description: MATLAB toolbox for functional connectivity with seed-based, ROI-to-ROI, and ICA analysis methods.
+  url: https://web.conn-toolbox.org
+  language: MATLAB
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: BrainSpace
+  description: Toolbox for gradient decomposition and manifold learning of functional and structural connectivity matrices.
+  url: https://github.com/MICA-MNI/BrainSpace
+  github: MICA-MNI/BrainSpace
+  language: Python/MATLAB
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: nibetaseries
+  description: Beta series estimation for task fMRI connectivity using least-squares separate or least-squares all approaches.
+  url: https://github.com/HBClab/NiBetaSeries
+  github: HBClab/NiBetaSeries
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: fMRI
+- name: ENIGMA Tractometry Toolbox
+  description: Standardized white matter tract-based morphometry protocol for multi-site diffusion MRI mega-analysis across ENIGMA working groups.
+  url: https://enigma.ini.usc.edu/protocols/imaging-protocols
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: diffusion
+- name: Brain Connectivity Toolbox
+  description: MATLAB and Python toolbox for complex network analysis of structural and functional brain connectivity data.
+  url: https://sites.google.com/site/bctnet/
+  language: MATLAB
+  date_added: 2026-06-22
+
+- name: Lead-DBS
+  description: MATLAB toolbox for DBS electrode reconstruction and connectome-based analysis using postoperative MRI and CT imaging.
+  url: https://www.lead-dbs.org
+  github: netstim/leaddbs
+  language: MATLAB
+  date_added: 2026-06-22

@@ -1,0 +1,34 @@
+# Quality Control tools
+# Fields:
+#   name:        display name
+#   description: one sentence — what it does, not why it matters
+#   url:         homepage or repo
+#   github:      owner/repo  (required for health checks)
+#   language:    primary implementation language
+#   modality:    top-level modality — MRI or EEG
+#   submodality: optional refinement within a modality (e.g. fMRI, structural, diffusion, ASL, multi)
+
+- name: MRIQC
+  description: Extracts image quality metrics from structural and functional MRI and produces visual reports.
+  url: https://github.com/nipreps/mriqc
+  github: nipreps/mriqc
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: mrQA
+  description: Checks MRI datasets for protocol compliance and flags deviations in acquisition parameters.
+  url: https://github.com/Open-Minds-Lab/mrQA
+  github: Open-Minds-Lab/mrQA
+  language: Python
+  date_added: 2026-06-16
+  modality: MRI
+  submodality: multi
+- name: wonkyconn
+  description: Evaluates residual motion artefacts in fMRI functional connectivity and generates visual QC reports.
+  url: https://github.com/HALFpipe/wonkyconn
+  github: HALFpipe/wonkyconn
+  language: Python
+  date_added: 2026-06-19
+  modality: MRI
+  submodality: fMRI

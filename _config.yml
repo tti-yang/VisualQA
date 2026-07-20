@@ -1,0 +1,12 @@
+title: VisualQA
+description: A community-driven directory of open-source imaging software, organized by workflow stage.
+baseurl: "/VisualQA"
+url: "https://henrfo.github.io"
+
+plugins:
+  - jekyll-sitemap
+
+exclude:
+  - scripts/
+  - Gemfile
+  - Gemfile.lock
