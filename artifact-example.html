@@ -26,6 +26,7 @@ title: Artifact example
     <figcaption>
       T1. Note the ripple pattern radiating outward from the skull on the right,
       and the loss of definition at the gray/white junction.
+      Data from the MiND study.<sup><a href="#ref-mind">1</a></sup>
     </figcaption>
   </figure>
 
@@ -44,6 +45,7 @@ title: Artifact example
     <figcaption>
       BOLD, 180 volumes, played at 30&nbsp;fps. Watch the top edge of the brain
       against the fixed crosshair.
+      Data from the MiND study.<sup><a href="#ref-mind">1</a></sup>
       <button type="button" class="qc-video-toggle" aria-pressed="false">Pause</button>
     </figcaption>
   </figure>
@@ -57,6 +59,21 @@ title: Artifact example
       <li>Participant still in the scanner? Rescan. Nothing below beats that.</li>
     </ul>
   </aside>
+
+  <section class="references" aria-label="References">
+    <h3>References</h3>
+    <ol>
+      <li id="ref-mind">
+        Gagnon, H., Simmonite, M., Cassady, K., Chamberlain, J., Freiburger, E.,
+        Lalwani, P., Kelley, S., Foerster, B., Park, D. C., Petrou, M.,
+        Seidler, R. D., Taylor, S. F., Weissman, D. H., &amp; Polk, T. A. (2019).
+        Michigan Neural Distinctiveness (MiND) study protocol: Investigating the
+        scope, causes, and consequences of age-related neural dedifferentiation.
+        <em>BMC Neurology, 19</em>(1), 61.
+        <a href="https://doi.org/10.1186/s12883-019-1294-6">https://doi.org/10.1186/s12883-019-1294-6</a>
+      </li>
+    </ol>
+  </section>
 </section>
 
 <style>
@@ -68,6 +85,9 @@ title: Artifact example
   .qc-fail { background: #fceded; color: #791f1f; }
   .qc-figure figcaption { font-size: 0.9rem; color: #5f5e5a; margin-top: 0.5rem; }
   .qc-decision-box { border-left: 3px solid #888780; padding: 0.75rem 1rem; background: #f1efe8; }
+  .references { margin-top: 2.5rem; font-size: 0.9rem; }
+  .references ol { padding-left: 1.25rem; }
+  .references li { margin-bottom: 0.5rem; line-height: 1.5; }
 
   @media (prefers-reduced-motion: reduce) {
     .qc-figure video { /* paused by script below; poster remains visible */ }
