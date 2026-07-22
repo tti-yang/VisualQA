@@ -16,27 +16,42 @@ title: VisualQA
 </header>
 
 <!-- ────────────────────────────────────────────────────────────────────────
-     The whole navigation is generated from this one tree. Edit it, and the
-     cascading pills, breadcrumb, and levels update — no other code to touch.
-     A node with `children` drills down another level; a leaf (no children)
-     shows the content panel at the bottom.  This is a STARTING POINT: the
-     branches below MRI/EEG are placeholders for the group to define.
+     The whole navigation is generated from the data below — edit it and the
+     cascading pills, levels, and leaf panel update, no other code to touch.
+
+     Two parts:
+       "modalities" — the modality → sub-modality tree (the part that varies).
+       "sections"   — the SHARED shell applied under EVERY sub-modality:
+                      Equipment setup / Artifacts / QC checks / Practice.
+                      Define it once here; it appears under all sub-modalities.
+
+     A node with `children` drills down; a leaf (empty {}) shows the content
+     panel. STARTING POINT: sub-modalities and the A/B/C/D artifacts are
+     placeholders for the group to define.
      ──────────────────────────────────────────────────────────────────────── -->
 <script id="taxonomy" type="application/json">
 {
-  "MRI": {
-    "children": {
-      "Functional (fMRI)": { "children": { "A": {}, "B": {}, "C": {}, "D": {} } },
-      "Structural":        { "children": {} },
-      "Diffusion (dMRI)":  { "children": {} }
+  "modalities": {
+    "MRI": {
+      "children": {
+        "Functional (fMRI)": {},
+        "Structural":        {},
+        "Diffusion (dMRI)":  {}
+      }
+    },
+    "EEG": {
+      "children": {
+        "Physiological": {},
+        "Environmental": {},
+        "Technical":     {}
+      }
     }
   },
-  "EEG": {
-    "children": {
-      "Physiological":   { "children": {} },
-      "Environmental":   { "children": {} },
-      "Technical":       { "children": {} }
-    }
+  "sections": {
+    "Equipment setup": {},
+    "Artifacts":       { "children": { "A": {}, "B": {}, "C": {}, "D": {} } },
+    "QC checks":       {},
+    "Practice":        {}
   }
 }
 </script>
@@ -100,20 +115,30 @@ title: VisualQA
 </style>
 
 <script>
-  const TAXONOMY = JSON.parse(document.getElementById('taxonomy').textContent);
+  const DATA       = JSON.parse(document.getElementById('taxonomy').textContent);
+  const MODALITIES = DATA.modalities;   // varies per branch
+  const SECTIONS   = DATA.sections;     // shared shell under every sub-modality
   const riverEl  = document.getElementById('river');
   const panelEl  = document.getElementById('leaf-panel');
   const pathEl   = document.getElementById('leaf-path');
 
-  // The path is the selections made so far, top to bottom: e.g. ['MRI', 'Functional (fMRI)']
+  // The path is the selections made so far, top to bottom:
+  // e.g. ['MRI', 'Functional (fMRI)', 'Artifacts', 'A']
   let path = [];
 
-  const LEVEL_LABELS = ['Modality', 'Sub-modality', 'Artifact', 'Detail'];
+  const LEVEL_LABELS = ['Modality', 'Sub-modality', 'Section', 'Artifact'];
 
-  // Walk the tree to the node addressed by `keys`, returning its children map.
+  // Children available at a given path. Levels 0–1 come from the modality tree;
+  // from the section level down, every sub-modality shares the SECTIONS shell.
   function childrenAt(keys) {
-    let node = { children: TAXONOMY };
-    for (const k of keys) {
+    if (keys.length === 0) return MODALITIES;
+    const mod = MODALITIES[keys[0]];
+    if (!mod) return null;
+    if (keys.length === 1) return mod.children || {};        // sub-modalities
+    if (!mod.children || !mod.children[keys[1]]) return null; // invalid sub-modality
+    // keys[2..] walk the shared sections shell
+    let node = { children: SECTIONS };
+    for (const k of keys.slice(2)) {
       if (!node.children || !node.children[k]) return null;
       node = node.children[k];
     }
