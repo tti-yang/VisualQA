@@ -1,0 +1,187 @@
+---
+layout: default
+title: Explore (navigation prototype)
+permalink: /explore/
+---
+
+<header>
+  <div class="site-header-row">
+    <div class="site-header-left">
+      <a href="{{ '/' | relative_url }}" class="back-link">← VisualQA</a>
+      <h1 class="site-title">Explore</h1>
+      <p class="site-subtitle">Prototype — drill down modality → sub-modality → artifact. Nothing is final; the taxonomy is a placeholder.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ────────────────────────────────────────────────────────────────────────
+     The whole navigation is generated from this one tree. Edit it, and the
+     cascading pills, breadcrumb, and levels update — no other code to touch.
+     A node with `children` drills down another level; a leaf (no children)
+     shows the content panel at the bottom.  This is a STARTING POINT: the
+     branches below MRI/EEG are placeholders for the group to define.
+     ──────────────────────────────────────────────────────────────────────── -->
+<script id="taxonomy" type="application/json">
+{
+  "MRI": {
+    "children": {
+      "Functional (fMRI)": { "children": { "Motion": {}, "Ghosting": {}, "Signal dropout": {}, "Acquisition / acceleration": {} } },
+      "Structural":        { "children": {} },
+      "Diffusion (dMRI)":  { "children": {} }
+    }
+  },
+  "EEG": {
+    "children": {
+      "Physiological":   { "children": {} },
+      "Environmental":   { "children": {} },
+      "Technical":       { "children": {} }
+    }
+  }
+}
+</script>
+
+<div class="river" id="river"></div>
+
+<div class="leaf-panel" id="leaf-panel" hidden>
+  <p class="leaf-path" id="leaf-path"></p>
+  <p class="leaf-note">Artifact content will live here — annotated examples, how to spot it, severity, and the judgment call. (Placeholder.)</p>
+</div>
+
+<style>
+  .river {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 720px;
+  }
+  .river-level {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    padding: 14px 0;
+    position: relative;
+  }
+  /* the "flow" — a hairline connector between levels */
+  .river-level + .river-level::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 10px;
+    width: 1px;
+    height: 14px;
+    background: var(--hairline);
+  }
+  .river-level .level-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-right: 8px;
+    min-width: 92px;
+  }
+  .leaf-panel {
+    margin-top: 24px;
+    max-width: 720px;
+    padding: 20px;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+  }
+  .leaf-path { font-size: 13px; color: var(--text); margin: 0 0 8px; }
+  .leaf-note { font-size: 13px; color: var(--muted); margin: 0; }
+</style>
+
+<script>
+  const TAXONOMY = JSON.parse(document.getElementById('taxonomy').textContent);
+  const riverEl  = document.getElementById('river');
+  const panelEl  = document.getElementById('leaf-panel');
+  const pathEl   = document.getElementById('leaf-path');
+
+  // The path is the selections made so far, top to bottom: e.g. ['MRI', 'Functional (fMRI)']
+  let path = [];
+
+  const LEVEL_LABELS = ['Modality', 'Sub-modality', 'Artifact', 'Detail'];
+
+  // Walk the tree to the node addressed by `keys`, returning its children map.
+  function childrenAt(keys) {
+    let node = { children: TAXONOMY };
+    for (const k of keys) {
+      if (!node.children || !node.children[k]) return null;
+      node = node.children[k];
+    }
+    return node.children || {};
+  }
+
+  function render() {
+    riverEl.innerHTML = '';
+
+    // Render one pill row per level along the current path, plus the next
+    // unselected level. Level i offers the children available given path[0..i-1].
+    for (let i = 0; i <= path.length; i++) {
+      const options = childrenAt(path.slice(0, i));
+      if (!options || Object.keys(options).length === 0) break;
+
+      const level = document.createElement('div');
+      level.className = 'river-level';
+
+      const label = document.createElement('span');
+      label.className = 'level-label';
+      label.textContent = LEVEL_LABELS[i] || 'More';
+      level.appendChild(label);
+
+      for (const key of Object.keys(options)) {
+        const btn = document.createElement('button');
+        btn.className = 'pill' + (path[i] === key ? ' selected' : '');
+        btn.textContent = key;
+        btn.addEventListener('click', () => choose(i, key));
+        level.appendChild(btn);
+      }
+      riverEl.appendChild(level);
+    }
+
+    updatePanel();
+    updateURL();
+  }
+
+  function choose(level, key) {
+    if (path[level] === key) {
+      // Toggle off — clicking the selected pill collapses everything below it
+      path = path.slice(0, level);
+    } else {
+      path = path.slice(0, level);
+      path.push(key);
+    }
+    render();
+  }
+
+  // Show the leaf panel only when the current selection has no further children
+  function updatePanel() {
+    const opts = childrenAt(path);
+    const isLeaf = path.length > 0 && (!opts || Object.keys(opts).length === 0);
+    if (isLeaf) {
+      pathEl.textContent = path.join('  ›  ');
+      panelEl.hidden = false;
+    } else {
+      panelEl.hidden = true;
+    }
+  }
+
+  function updateURL() {
+    const q = path.length ? '?path=' + encodeURIComponent(path.join('/')) : location.pathname;
+    history.replaceState(null, '', q);
+  }
+
+  // Restore a shared path from the URL
+  (function () {
+    const p = new URLSearchParams(location.search).get('path');
+    if (p) {
+      const parts = p.split('/');
+      const restored = [];
+      for (let i = 0; i < parts.length; i++) {
+        const opts = childrenAt(restored);
+        if (opts && opts[parts[i]]) restored.push(parts[i]); else break;
+      }
+      path = restored;
+    }
+    render();
+  })();
+</script>
