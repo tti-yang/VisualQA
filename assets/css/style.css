@@ -35,6 +35,9 @@ body {
   border-bottom: 1px solid var(--hairline);
 }
 
+/* Inside the cascade overlay iframe — no site chrome needed */
+.embedded .site-topbar { display: none; }
+
 .site-topbar-brand {
   font-size: 13px;
   font-weight: 600;
