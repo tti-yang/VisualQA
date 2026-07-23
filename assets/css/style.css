@@ -821,3 +821,71 @@ a.pill {
     border-color: #cccccc;
   }
 }
+
+/* ── Templated artifact pages ── */
+.artifact {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.artifact-crumb {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.artifact-title {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+.artifact-aka {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.artifact-summary {
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.artifact-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.artifact-badges .badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--muted);
+}
+.artifact-body h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 30px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--hairline);
+}
+.artifact-body p,
+.artifact-body li {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+}
+.artifact-body ul,
+.artifact-body ol {
+  margin: 0 0 12px 20px;
+}
+.artifact-body p {
+  margin-bottom: 12px;
+}
+.artifact-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 8px 0;
+}

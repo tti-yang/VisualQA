@@ -1,0 +1,131 @@
+name: Submit an artifact
+description: Propose a new artifact page for the VisualQA atlas. Fill in what you can — nothing here needs any web or coding knowledge.
+title: "[Artifact] "
+labels: ["artifact-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Fill in the fields below in plain language.
+        Don't worry about formatting, HTML, or where files go — a maintainer
+        turns your submission into a page. Leave anything blank if you're unsure.
+
+  - type: input
+    id: name
+    attributes:
+      label: Artifact name
+      placeholder: e.g. Head motion
+    validations:
+      required: true
+
+  - type: input
+    id: aka
+    attributes:
+      label: Also known as
+      description: Other names people use for it (optional).
+      placeholder: e.g. N/2 ghost, Nyquist ghost
+
+  - type: dropdown
+    id: placement
+    attributes:
+      label: Where should this go?
+      description: Which modality and sub-modality does it belong under? Pick "Not sure" and explain at the bottom if unclear — the taxonomy is still settling.
+      options:
+        - "MRI — Functional (fMRI)"
+        - "MRI — Structural"
+        - "MRI — Diffusion (dMRI)"
+        - "EEG — A (placeholder)"
+        - "EEG — B (placeholder)"
+        - "EEG — C (placeholder)"
+        - "Not sure / suggest in notes"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: origin
+    attributes:
+      label: Where does it come from?
+      description: The kind of source. (Sam's point — not every artifact is physiological.)
+      options:
+        - "Physiological (the subject — motion, cardiac, respiration, eyes…)"
+        - "Acquisition / reconstruction (sequence, sampling, acceleration…)"
+        - "Environmental (scanner room, external interference…)"
+        - "Technical / hardware (coils, gradients, electrodes…)"
+        - "Not sure"
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How common is it?
+      options:
+        - "Common"
+        - "Occasional"
+        - "Rare"
+        - "Not sure"
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: One-line summary
+      description: A single sentence — what it is, in plain terms.
+      placeholder: A faint, displaced copy of the brain shifted by half the field of view.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-you-see
+    attributes:
+      label: What you see
+      description: How do you recognize it on an image? What does it look like?
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it happens
+      description: The mechanism, as much or as little as you know.
+
+  - type: textarea
+    id: how-to-check
+    attributes:
+      label: How to check
+      description: Steps or tools to look for it (e.g. carpet plot, framewise displacement, a specific viewer).
+
+  - type: textarea
+    id: judgment-call
+    attributes:
+      label: The judgment call
+      description: This is the important one. How do you weigh its severity and context, and decide whether — or how — to act on the data? There is rarely one right answer; describe how a researcher actually reasons about it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-to-do
+    attributes:
+      label: What to do about it
+      description: Options for handling it, with caveats. It's fine to say "it depends."
+
+  - type: textarea
+    id: confuse-with
+    attributes:
+      label: Easy to confuse with
+      description: Other artifacts it resembles, and how to tell them apart.
+
+  - type: textarea
+    id: images
+    attributes:
+      label: Example images / videos
+      description: Drag and drop image or video files right into this box. Add a one-line caption under each, and note the data source / license if you know it.
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Papers, guidelines, or links that back this up.
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Placement suggestions, open questions, things you're unsure about.
