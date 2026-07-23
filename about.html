@@ -7,7 +7,6 @@ permalink: /about/
 <header>
   <div class="site-header-row">
     <div class="site-header-left">
-      <a href="{{ '/' | relative_url }}" class="back-link">← Directory</a>
       <h1 class="site-title">About VisualQA</h1>
     </div>
     <nav class="site-nav">
@@ -25,18 +24,6 @@ permalink: /about/
   <p>VisualQA aims to close that gap with annotated examples of common imaging artifacts, practical visual inspection guidelines, and curated resources — so researchers can learn QA, and perform it more consistently.</p>
 
   <p>The project began around MRI and fMRI. It is now expanding to EEG, with QA resources planned for both. If you work in either area — or care about building open educational resources — you're welcome to join in.</p>
-
-  <p class="about-gap"><strong>How health status works.</strong> The curated tools in the directory are checked weekly by a GitHub Actions cron job against each tool's repository.</p>
-  <ul class="health-legend">
-    <li><span class="dot dot-active"></span> Active — committed within 6 months</li>
-    <li><span class="dot dot-quiet"></span> Quiet — 6 to 24 months</li>
-    <li><span class="dot dot-inactive"></span> Inactive — 2+ years or archived</li>
-    <li><span class="dot dot-external"></span> Not on GitHub</li>
-  </ul>
-
-  <p><strong>What gets included.</strong> Resources need to help someone actually do QA — spot an artifact, judge a scan, or automate a check — and be open and actively maintained. Small or little-known tools are welcome as long as they solve a real problem and are being worked on.</p>
-
-  <p><strong>How to contribute.</strong> Open an issue directly on GitHub, or submit a pull request. Each tool is a YAML entry: name, url, description, language, modality (top-level: MRI, EEG), optionally submodality (e.g. fMRI, diffusion) and github (owner/repo for health tracking), and added_by (with optional added_by_github handle) to credit whoever suggested it.</p>
 
   {%- assign contributors = '' | split: '' -%}
   {%- for cat in site.data.categories -%}

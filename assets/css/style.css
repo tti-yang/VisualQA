@@ -29,6 +29,24 @@ body {
 
 /* ── Header ── */
 
+.site-topbar {
+  margin-bottom: 32px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.site-topbar-brand {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.site-topbar-brand:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .site-header-row {
   display: flex;
   justify-content: space-between;

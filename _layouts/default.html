@@ -16,6 +16,11 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
+  {% unless page.url == '/' %}
+  <div class="site-topbar">
+    <a class="site-topbar-brand" href="{{ '/' | relative_url }}">← VisualQA</a>
+  </div>
+  {% endunless %}
   {{ content }}
 </body>
 </html>
