@@ -24,7 +24,7 @@ body:
   - type: dropdown
     id: submodality
     attributes:
-      label: Where in the river (sub-modality)
+      label: Sub-modality
       options:
         - "Functional (fMRI)"
         - "Structural"
@@ -39,7 +39,8 @@ body:
   - type: dropdown
     id: section
     attributes:
-      label: Section
+      label: Section (where in the river)
+      description: Which part of the page structure it belongs under.
       options:
         - Equipment setup
         - Artifacts
