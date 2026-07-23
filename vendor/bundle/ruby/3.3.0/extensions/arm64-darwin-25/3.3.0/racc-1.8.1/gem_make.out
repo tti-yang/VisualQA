@@ -1,0 +1,18 @@
+current directory: /Users/ttiyang/VisualQA/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+/opt/homebrew/opt/ruby@3.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/ttiyang/VisualQA/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260722-24131-a7weof sitelibdir\=./.gem.20260722-24131-a7weof clean
+
+current directory: /Users/ttiyang/VisualQA/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260722-24131-a7weof sitelibdir\=./.gem.20260722-24131-a7weof
+compiling cparse.c
+linking shared-object racc/cparse.bundle
+
+current directory: /Users/ttiyang/VisualQA/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260722-24131-a7weof sitelibdir\=./.gem.20260722-24131-a7weof install
+/usr/bin/install -c -m 0755 cparse.bundle ./.gem.20260722-24131-a7weof/racc
+
+current directory: /Users/ttiyang/VisualQA/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260722-24131-a7weof sitelibdir\=./.gem.20260722-24131-a7weof clean
