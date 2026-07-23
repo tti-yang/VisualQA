@@ -1,0 +1,120 @@
+name: Submission → draft PR
+
+# When a "Submit a page" issue is filed, turn it into an artifact page and open
+# a draft PR: parse the form fields, download any images the contributor dropped
+# in (into assets/images/), rewrite the links to point in-repo, and write the
+# page file. A maintainer just reviews and merges.
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build-page:
+    if: contains(github.event.issue.labels.*.name, 'submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build page and pull in images
+        id: build
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            // Parse the issue-form body into "### Label\n\nvalue" blocks.
+            const fields = {};
+            for (const block of body.split(/\n### /)) {
+              const nl = block.indexOf('\n');
+              if (nl === -1) continue;
+              const label = block.slice(0, nl).replace(/^### /, '').trim();
+              let value = block.slice(nl).trim();
+              if (value === '_No response_') value = '';
+              fields[label] = value;
+            }
+
+            const title       = (fields['Title'] || issue.title.replace(/^\[Page\]\s*/, '')).trim();
+            const modality    = (fields['Modality'] || '').trim();
+            const submodality = (fields['Sub-modality'] || '').trim();
+            const section     = (fields['Section (where in the river)'] || '').trim();
+            let   pageBody    = fields['Write the page'] || '';
+
+            if (!title || !modality) { core.setFailed('Missing Title or Modality'); return; }
+
+            const slug   = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const modDir = modality.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+            // Collect image URLs (markdown + <img>) the contributor dropped in.
+            const urls = new Set();
+            let m;
+            const mdRe   = /!\[[^\]]*\]\(\s*<?(https?:\/\/[^\s)>]+)/g;
+            const htmlRe = /<img[^>]+src="(https?:\/\/[^"]+)"/g;
+            while ((m = mdRe.exec(pageBody)))   urls.add(m[1]);
+            while ((m = htmlRe.exec(pageBody))) urls.add(m[1]);
+
+            // Download each into assets/images/ and rewrite the link in-repo.
+            fs.mkdirSync('assets/images', { recursive: true });
+            let n = 0;
+            for (const url of urls) {
+              try {
+                const res = await fetch(url);
+                if (!res.ok) { core.warning(`skip ${url}: HTTP ${res.status}`); continue; }
+                const ct  = res.headers.get('content-type') || '';
+                const ext = ct.includes('png')  ? 'png'  : ct.includes('gif')  ? 'gif'
+                          : ct.includes('svg')  ? 'svg'  : ct.includes('webp') ? 'webp'
+                          : ct.includes('mp4')  ? 'mp4'  : 'jpg';
+                const name = `${slug}-${++n}.${ext}`;
+                fs.writeFileSync(path.join('assets/images', name), Buffer.from(await res.arrayBuffer()));
+                pageBody = pageBody.split(url).join(`/VisualQA/assets/images/${name}`);
+              } catch (e) { core.warning(`could not fetch ${url}: ${e}`); }
+            }
+
+            // Write the page.
+            const dir = path.join('_artifacts', modDir);
+            fs.mkdirSync(dir, { recursive: true });
+            const permalink = `/artifacts/${modDir}/${slug}/`;
+            const fm = [
+              '---',
+              `title: ${title}`,
+              `modality: ${modality}`,
+              submodality ? `submodality: ${submodality}` : null,
+              section ? `section: ${section}` : null,
+              `permalink: ${permalink}`,
+              '---',
+              ''
+            ].filter(x => x !== null).join('\n');
+            fs.writeFileSync(path.join(dir, `${slug}.md`), fm + pageBody.trim() + '\n');
+
+            core.setOutput('slug', slug);
+            core.setOutput('file', `${dir}/${slug}.md`);
+            core.setOutput('permalink', permalink);
+            core.setOutput('title', title);
+
+      - name: Open draft PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: submission/issue-${{ github.event.issue.number }}
+          base: main
+          draft: true
+          title: "Draft page: ${{ steps.build.outputs.title }} (#${{ github.event.issue.number }})"
+          commit-message: "Draft page from issue #${{ github.event.issue.number }}"
+          labels: submission
+          body: |
+            Auto-generated from #${{ github.event.issue.number }}.
+
+            - Page file: `${{ steps.build.outputs.file }}`
+            - Will render at: `${{ steps.build.outputs.permalink }}`
+            - Any dropped images were downloaded into `assets/images/` and the links rewritten.
+
+            Review the content and merge. After merging, add it to the cascade
+            (`index.html` → `content` map) if it isn't there yet.
+
+            Closes #${{ github.event.issue.number }}
