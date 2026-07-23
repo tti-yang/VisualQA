@@ -35,8 +35,10 @@ body {
   border-bottom: 1px solid var(--hairline);
 }
 
-/* Inside the cascade overlay iframe — no site chrome needed */
+/* Inside the cascade overlay iframe — no site chrome, and a transparent
+   body so the overlay panel's translucent tint (and blurred page) show through */
 .embedded .site-topbar { display: none; }
+.embedded body { background: transparent; }
 
 .site-topbar-brand {
   font-size: 13px;
