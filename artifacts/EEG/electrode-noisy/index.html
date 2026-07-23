@@ -1,0 +1,64 @@
+---
+layout: default
+title: Noisy or unstable channel
+---
+
+<section class="artifact-identification">
+  <h2>Noisy or unstable channel</h2>
+
+  <h3>What you will see</h3>
+  <p>
+    Excessive variance, persistent high-frequency noise, repeated bursts, or
+    activity much larger than neighboring electrodes.
+  </p>
+
+  <aside class="qc-info-box qc-judgement-box">
+    <h3>Judgment calls and decision-making considerations</h3>
+    <ul>
+      <li>Is the problem continuous or limited to certain periods?</li>
+      <li>Is it clearly different from genuine local neural activity?</li>
+      <li>Would excluding the channel remove an important electrode from the analysis?</li>
+    </ul>
+  </aside>
+
+  <aside class="qc-info-box qc-solution-box">
+    <h3>Possible solutions &amp; responses</h3>
+    <ul>
+      <li>Repair during acquisition.</li>
+      <li>Mark bad time periods or the entire channel.</li>
+      <li>Exclude before ICA when appropriate.</li>
+      <li>Interpolate only when justified.</li>
+    </ul>
+  </aside>
+
+  <section class="references" aria-label="References">
+    <h3>References</h3>
+    <p class="references-placeholder">References will be added.</p>
+  </section>
+</section>
+
+<style>
+  .qc-info-box {
+    margin: 1.25rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 4px solid;
+  }
+  .qc-info-box h3 { margin-top: 0; }
+  .qc-info-box ul { margin-bottom: 0; }
+  .qc-judgement-box {
+    border-color: #4f76a1;
+    background: #eaf1f8;
+  }
+  .qc-solution-box {
+    border-color: #3f8068;
+    background: #e7f3ee;
+  }
+  .references {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+  }
+  .references-placeholder {
+    color: #6b6a65;
+    font-style: italic;
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+layout: default
+title: Ocular vertical eye movement
+---
+
+<section class="artifact-identification">
+  <h2>Vertical eye movement</h2>
+
+  <h3>What you will see</h3>
+  <p>
+    Slow frontal deflection resembling a partial blink, often with opposite
+    polarity above and below the eye.
+  </p>
+
+  <figure class="qc-figure">
+    <img
+      src="/VisualQA/assets/images/eeg_vEyeMovement.png"
+      alt="EEG recording showing a slow frontal deflection caused by vertical eye movement, with opposite polarity above and below the eye.">
+  </figure>
+
+  <aside class="qc-info-box qc-judgement-box">
+    <h3>Judgment calls and decision-making considerations</h3>
+    <ul>
+      <li>Is the movement systematic across conditions?</li>
+      <li>Does it occur before or after the critical ERP interval?</li>
+      <li>Can it be distinguished from a blink or frontal neural activity?</li>
+    </ul>
+  </aside>
+
+  <aside class="qc-info-box qc-solution-box">
+    <h3>Possible solutions &amp; responses</h3>
+    <ul>
+      <li>Detect using vertical EOG or eye tracking.</li>
+      <li>Reject affected trials.</li>
+      <li>Probably consider correction when the pattern is stable and well characterized.</li>
+    </ul>
+  </aside>
+
+  <section class="references" aria-label="References">
+    <h3>References</h3>
+    <p class="references-placeholder">References will be added.</p>
+  </section>
+</section>
+
+<style>
+  .qc-figure { margin: 1.5rem 0; }
+  .qc-figure > img { width: 100%; height: auto; display: block; }
+  .qc-info-box {
+    margin: 1.25rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 4px solid;
+  }
+  .qc-info-box h3 { margin-top: 0; }
+  .qc-info-box ul { margin-bottom: 0; }
+  .qc-judgement-box {
+    border-color: #4f76a1;
+    background: #eaf1f8;
+  }
+  .qc-solution-box {
+    border-color: #3f8068;
+    background: #e7f3ee;
+  }
+  .references {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+  }
+  .references-placeholder {
+    color: #6b6a65;
+    font-style: italic;
+  }
+</style>
