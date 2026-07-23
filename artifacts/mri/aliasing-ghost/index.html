@@ -17,11 +17,11 @@ title: Aliasing ghost
   <figure class="qc-figure">
     <div class="qc-pair">
       <div>
-        <img src="/VisualQA/assets/images/ghost_windowed_normal.png" alt="Axial functional slice at a normal display window; the brain is bright and the surrounding background looks empty.">
+        <img src="{{ '/assets/images/ghost_windowed_normal.png' | relative_url }}" alt="Axial functional slice at a normal display window; the brain is bright and the surrounding background looks empty.">
         <span class="qc-label qc-pass">Normal window</span>
       </div>
       <div>
-        <img src="/VisualQA/assets/images/ghost_windowed_reduced.png" alt="The same slice with the top of the intensity window reduced; a displaced copy of the brain outline is now visible in the background outside the head.">
+        <img src="{{ '/assets/images/ghost_windowed_reduced.png' | relative_url }}" alt="The same slice with the top of the intensity window reduced; a displaced copy of the brain outline is now visible in the background outside the head.">
         <span class="qc-label qc-fail">Reduced window</span>
       </div>
     </div>
@@ -34,7 +34,7 @@ title: Aliasing ghost
   </figure>
 
   <figure class="qc-figure">
-    <img src="/VisualQA/assets/images/ghost_mosaic.png" alt="Mosaic of axial and sagittal functional slices spanning the whole brain, with two slices outlined by dashed red boxes marking where a phase-encode ghost is visible.">
+    <img src="{{ '/assets/images/ghost_mosaic.png' | relative_url }}" alt="Mosaic of axial and sagittal functional slices spanning the whole brain, with two slices outlined by dashed red boxes marking where a phase-encode ghost is visible.">
     <figcaption>
       Whole-run mosaic of an EPI acquisition. The dashed boxes mark slices where
       the N/2 ghost is visible against the background. Scanning a full mosaic like
