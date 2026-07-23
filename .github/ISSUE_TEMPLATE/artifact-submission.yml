@@ -50,6 +50,13 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: custom_placement
+    attributes:
+      label: New sub-modality or section? (optional)
+      description: If yours isn't in the lists above, name it here and we'll add it to the river.
+      placeholder: e.g. Perfusion (ASL), or a new section name
+
   - type: textarea
     id: body
     attributes:

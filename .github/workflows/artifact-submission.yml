@@ -45,7 +45,11 @@ jobs:
             const modality    = (fields['Modality'] || '').trim();
             const submodality = (fields['Sub-modality'] || '').trim();
             const section     = (fields['Section (where in the river)'] || '').trim();
+            const custom      = (fields['New sub-modality or section? (optional)'] || '').trim();
             let   pageBody    = fields['Write the page'] || '';
+
+            // Surface a proposed new placement so the reviewer can slot it into the river.
+            if (custom) pageBody = `<!-- PROPOSED NEW PLACEMENT (not in the lists): ${custom} -->\n\n` + pageBody;
 
             if (!title || !modality) { core.setFailed('Missing Title or Modality'); return; }
 
