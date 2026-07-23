@@ -123,17 +123,22 @@ title: VisualQA
     text-transform: uppercase;
     color: var(--muted);
   }
-  /* Top level (modality: MRI / EEG) — larger than the deeper pills */
+  /* Top level (modality: MRI / EEG) — largest */
   .river-level:first-child .pill {
     font-size: 16px;
     padding: 8px 22px;
     border-radius: 3px;
   }
+  /* Second level (sub-modality) — a step down from modality, up from the rest */
+  .river-level:nth-child(2) .pill {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
   .level-pills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 6px;
+    gap: 12px;
   }
   .leaf-panel {
     margin: 28px auto 0;
@@ -147,38 +152,42 @@ title: VisualQA
   .leaf-note { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.6; }
 
   /* ── Artifact overlay ── */
-  .artifact-overlay { position: fixed; inset: 0; z-index: 1000; }
+  .artifact-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6vh 6vw;                 /* blurred page shows evenly all around */
+  }
   .artifact-overlay[hidden] { display: none; }
   .artifact-scrim {
-    position: absolute; inset: 0;
-    background: rgba(20,20,20,0.38);
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
+    position: fixed; inset: 0;        /* full-viewport blurred/dimmed backdrop */
+    background: rgba(8,8,10,0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     animation: overlay-fade 0.18s ease-out;
   }
   .artifact-panel {
-    position: absolute;
-    top: 4vh; left: 50%; transform: translateX(-50%);
-    width: min(940px, 92vw); height: 92vh;
+    position: relative;
+    width: min(860px, 100%); height: 100%;
     background: #ffffff;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
     display: flex; flex-direction: column;
     animation: overlay-rise 0.2s ease-out;
   }
   .artifact-close {
-    position: absolute; top: 10px; right: 12px; z-index: 2;
-    width: 30px; height: 30px; border-radius: 50%;
+    position: absolute; top: 12px; right: 14px; z-index: 2;
+    width: 32px; height: 32px; border-radius: 50%;
     border: 1px solid var(--hairline);
     background: #ffffff; color: var(--text);
-    font-size: 14px; line-height: 1; cursor: pointer;
+    font-size: 15px; line-height: 1; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
   }
   .artifact-close:hover { border-color: #aaaaaa; }
   .artifact-frame { flex: 1; width: 100%; border: 0; background: #ffffff; }
   @keyframes overlay-fade { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes overlay-rise { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  @keyframes overlay-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   @media (prefers-color-scheme: dark) {
     .artifact-panel, .artifact-close, .artifact-frame { background: #111111; }
     .artifact-close { color: #ededec; }
@@ -256,10 +265,11 @@ title: VisualQA
           pill.className = 'pill pill-link';
           pill.href = BASEURL + node.url;
           pill.textContent = key;
+          const viewUrl = node.url;
           pill.addEventListener('click', function (e) {
             if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
             e.preventDefault();
-            openArtifact(pill.href);
+            openArtifact(viewUrl);
           });
         } else {
           pill = document.createElement('button');
@@ -314,33 +324,59 @@ title: VisualQA
   const frameEl   = document.getElementById('artifact-frame');
   const closeEl   = document.getElementById('artifact-close');
 
-  function openArtifact(url) {
-    frameEl.src = url;
+  function pathQuery() {
+    return path.length ? '?path=' + encodeURIComponent(path.join('/')) : '';
+  }
+
+  // Show the overlay (display only — no history change)
+  function showArtifact(url) {
+    if (!overlayEl.hidden && frameEl.dataset.url === url) return;
+    frameEl.src = BASEURL + url;
+    frameEl.dataset.url = url;
     overlayEl.hidden = false;
     document.body.style.overflow = 'hidden';
     closeEl.focus();
-    // Push a history entry so the browser Back button also closes the overlay
-    history.pushState({ vqaModal: true }, '');
+  }
+
+  // User opens an artifact: show it and give it its own shareable URL
+  // (…?path=…&view=/artifacts/…), pushing one history entry.
+  function openArtifact(url) {
+    showArtifact(url);
+    const q = pathQuery();
+    const sep = q ? '&' : '?';
+    history.pushState({ vqaModal: url }, '', q + sep + 'view=' + encodeURIComponent(url));
   }
 
   function hideOverlay() {
     if (overlayEl.hidden) return;
     overlayEl.hidden = true;
     frameEl.src = 'about:blank';   // stop any video/audio playing inside
+    frameEl.dataset.url = '';
     document.body.style.overflow = '';
   }
 
-  // Close actions route through history.back() so the button, the scrim, Esc,
-  // and the browser Back button all behave identically (pop the pushed entry).
+  // The ✕, the scrim, and Esc all close. If we pushed a history entry when
+  // opening, pop it (so browser Back matches); if we arrived via a shared
+  // ?view= link, just drop the param.
   function requestClose() {
-    if (!overlayEl.hidden) history.back();
+    if (overlayEl.hidden) return;
+    if (history.state && history.state.vqaModal) {
+      history.back();
+    } else {
+      hideOverlay();
+      history.replaceState(null, '', pathQuery() || location.pathname);
+    }
   }
   closeEl.addEventListener('click', requestClose);
   scrimEl.addEventListener('click', requestClose);
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') requestClose();
   });
-  window.addEventListener('popstate', hideOverlay);
+  // Keep the overlay in sync with Back/Forward navigation
+  window.addEventListener('popstate', () => {
+    const view = new URLSearchParams(location.search).get('view');
+    if (view) showArtifact(view); else hideOverlay();
+  });
 
   // Restore a shared path from the URL
   (function () {
@@ -355,6 +391,9 @@ title: VisualQA
       path = restored;
     }
     render();
+    // Shared deep-link straight into an open artifact (…&view=/artifacts/…)
+    const view = new URLSearchParams(location.search).get('view');
+    if (view) showArtifact(view);
   })();
 </script>
 
