@@ -61,6 +61,6 @@ body:
     id: body
     attributes:
       label: Write the page
-      description: Just start writing. Drag and drop images or videos straight into this box.
+      description: Just start writing. Drag and drop images or videos straight into this box. Don't worry about getting it perfect — submit now and come back to edit and revise the issue anytime.
     validations:
       required: true
