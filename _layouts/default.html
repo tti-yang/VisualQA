@@ -20,6 +20,17 @@
   <div class="site-topbar">
     <a class="site-topbar-brand" href="{{ '/' | relative_url }}">← VisualQA</a>
   </div>
+  <script>
+    // Return the "← VisualQA" link to wherever the cascade was left off
+    (function () {
+      var el = document.querySelector('.site-topbar-brand');
+      if (!el) return;
+      try {
+        var p = sessionStorage.getItem('vqa-path');
+        if (p) el.href = el.getAttribute('href').split('?')[0] + '?path=' + encodeURIComponent(p);
+      } catch (e) {}
+    })();
+  </script>
   {% endunless %}
   {{ content }}
 </body>

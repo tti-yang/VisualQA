@@ -1,16 +1,30 @@
----
-layout: default
-title: VisualQA
----
-
-<header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VisualQA</title>
+  <meta name="description" content="An open educational resource for neuroimaging quality assurance — annotated artifact examples, visual inspection guidelines, and curated tools for MRI/fMRI and EEG.">
+  <meta property="og:title" content="VisualQA">
+  <meta property="og:description" content="An open educational resource for neuroimaging quality assurance — annotated artifact examples, visual inspection guidelines, and curated tools for MRI/fMRI and EEG.">
+  <meta property="og:url" content="https://henrfo.github.io/VisualQA/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VisualQA">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="VisualQA">
+  <meta name="twitter:description" content="An open educational resource for neuroimaging quality assurance — annotated artifact examples, visual inspection guidelines, and curated tools for MRI/fMRI and EEG.">
+  <link rel="stylesheet" href="/VisualQA/assets/css/style.css">
+</head>
+<body>
+  
+  <header>
   <div class="site-header-row">
     <div class="site-header-left">
-      <h1 class="site-title"><a href="{{ '/' | relative_url }}">VisualQA</a></h1>
+      <h1 class="site-title"><a href="/VisualQA/">VisualQA</a></h1>
       <p class="site-subtitle">Building an open educational resource for neuroimaging quality assurance.</p>
     </div>
     <nav class="site-nav">
-      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="/VisualQA/about/">About</a>
     </nav>
   </div>
 </header>
@@ -142,7 +156,7 @@ title: VisualQA
   const MODALITIES = DATA.modalities;   // varies per branch
   const SECTIONS   = DATA.sections;     // shared shell under every sub-modality
   const CONTENT    = DATA.content || {}; // per-modality items that fill sections
-  const BASEURL    = "{{ site.baseurl }}"; // e.g. /VisualQA — for page links
+  const BASEURL    = "/VisualQA"; // e.g. /VisualQA — for page links
   const riverEl  = document.getElementById('river');
   const panelEl  = document.getElementById('leaf-panel');
   const pathEl   = document.getElementById('leaf-path');
@@ -247,11 +261,8 @@ title: VisualQA
   }
 
   function updateURL() {
-    const pathStr = path.join('/');
-    const q = path.length ? '?path=' + encodeURIComponent(pathStr) : location.pathname;
+    const q = path.length ? '?path=' + encodeURIComponent(path.join('/')) : location.pathname;
     history.replaceState(null, '', q);
-    // Remember position so the "← VisualQA" link on content pages can return here
-    try { sessionStorage.setItem('vqa-path', pathStr); } catch (e) {}
   }
 
   // Restore a shared path from the URL
@@ -274,3 +285,6 @@ title: VisualQA
   Built at Neurohackademy 2026 · <a href="https://github.com/henrfo/VisualQA" target="_blank" rel="noopener noreferrer">VisualQA on GitHub</a>
 </footer>
 
+
+</body>
+</html>
