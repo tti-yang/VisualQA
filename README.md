@@ -1,4 +1,4 @@
-# VisualQA
+# NeuroQA
 
 Building an open educational resource for neuroimaging quality assurance.
 
@@ -34,7 +34,7 @@ The pill row at the top of the directory filters on `modality`. `submodality` is
 
 Seeded from [openmritools.github.io](https://github.com/openmritools/openmritools.github.io) — layout, CSS, and health-check automation. The top-row modality pills come from [openimagingtools.github.io](https://github.com/openimagingtools/openimagingtools.github.io).
 
-**The tool data in `_data/tools/` is still the inherited MRI corpus** — placeholder content to prune and replace, not a curated VisualQA list.
+**The tool data in `_data/tools/` is still the inherited MRI corpus** — placeholder content to prune and replace, not a curated NeuroQA list.
 
 ## Not yet wired up
 

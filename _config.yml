@@ -1,7 +1,18 @@
-title: VisualQA
+title: NeuroQA
 description: An open educational resource for neuroimaging quality assurance — annotated artifact examples, visual inspection guidelines, and curated tools for MRI/fMRI and EEG.
 baseurl: "/VisualQA"
 url: "https://henrfo.github.io"
+
+collections:
+  artifacts:
+    output: true
+    permalink: /artifacts/:path/
+
+defaults:
+  - scope:
+      type: artifacts
+    values:
+      layout: artifact
 
 plugins:
   - jekyll-sitemap

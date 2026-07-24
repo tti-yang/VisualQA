@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<article class="artifact">
+  <p class="artifact-crumb">
+    {{ page.modality }}{% if page.submodality %} · {{ page.submodality }}{% endif %}{% if page.section %} · {{ page.section }}{% endif %}
+  </p>
+
+  <h1 class="artifact-title">{{ page.name | default: page.title }}</h1>
+  {% if page.aka %}<p class="artifact-aka">Also known as {{ page.aka }}</p>{% endif %}
+  {% if page.summary %}<p class="artifact-summary">{{ page.summary }}</p>{% endif %}
+
+  {% if page.origin or page.severity %}
+  <div class="artifact-badges">
+    {% if page.origin %}<span class="badge">Origin — {{ page.origin }}</span>{% endif %}
+    {% if page.severity %}<span class="badge">Prevalence — {{ page.severity }}</span>{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="artifact-body">
+    {{ content }}
+  </div>
+</article>

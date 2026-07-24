@@ -1,12 +1,12 @@
 ---
 layout: default
-title: VisualQA
+title: NeuroQA
 ---
 
 <header>
   <div class="site-header-row">
     <div class="site-header-left">
-      <h1 class="site-title"><a href="{{ '/' | relative_url }}">VisualQA</a></h1>
+      <h1 class="site-title"><a href="{{ '/' | relative_url }}">NeuroQA</a></h1>
       <p class="site-subtitle">Building an open educational resource for neuroimaging quality assurance.</p>
     </div>
     <nav class="site-nav">
@@ -19,39 +19,80 @@ title: VisualQA
      The whole navigation is generated from the data below — edit it and the
      cascading pills, levels, and leaf panel update, no other code to touch.
 
-     Two parts:
-       "modalities" — the modality → sub-modality tree (the part that varies).
-       "sections"   — the SHARED shell applied under EVERY sub-modality:
-                      Equipment setup / Artifacts / QC checks / Practice.
-                      Define it once here; it appears under all sub-modalities.
+     Three parts:
+       "modalities" — the top-level toggle: MRI / EEG.
+       "sections"   — the SHARED shell shown under whichever modality is picked:
+                      Open Resources / Artifacts / QC checks / Practice.
+       "content"    — per-modality items that fill a section, e.g. the MRI
+                      artifact pages under MRI › Artifacts.
+                      Keyed by modality so MRI items don't appear under EEG.
 
-     A node with `children` drills down; a leaf (empty {}) shows the content
-     panel. STARTING POINT: sub-modalities and the A/B/C/D artifacts are
-     placeholders for the group to define.
+     Flow: Modality → Section → item. An item with a "url" is a LINK to a real
+     page (opens it); an empty section shows a placeholder panel. The group
+     refines "content".
      ──────────────────────────────────────────────────────────────────────── -->
 <script id="taxonomy" type="application/json">
 {
   "modalities": {
+    "MRI": {},
+    "EEG": {}
+  },
+  "sections": {
+    "Open Resources": {},
+    "Artifacts":      {},
+    "QC checks":      {},
+    "Practice":       {}
+  },
+  "content": {
     "MRI": {
-      "children": {
-        "Functional (fMRI)": {},
-        "Structural":        {},
-        "Diffusion (dMRI)":  {}
+      "Artifacts": {
+        "Head motion":         { "url": "/artifacts/mri/head-motion/",           "img": "/assets/images/motion_t1_bad.png",      "desc": "Blurring and concentric ringing from the brain shifting between volumes." },
+        "Eye spillover":       { "url": "/artifacts/mri/eye-spill/",             "img": "/assets/images/eyespill_mriqc_fig1.png", "desc": "Signal from moving, blinking eyes streaking along the phase-encode axis." },
+        "Aliasing ghost":      { "url": "/artifacts/mri/aliasing-ghost/",        "img": "/assets/images/ghost_afni_fig2.png",     "desc": "A faint copy of the brain shifted by half the field of view." },
+        "Wrap-around":         { "url": "/artifacts/mri/wraparound/",            "img": "/assets/images/wraparound_series.png",   "desc": "Anatomy outside the field of view folded back onto the opposite side." },
+        "Susceptibility dropout": { "url": "/artifacts/mri/susceptibility-artifact/", "img": "/assets/images/ofc_dropout_loop.gif", "desc": "Air–tissue interfaces warp the field, dropping signal and distorting EPI." }
+      },
+      "QC checks": {
+        "Quality control workflow": { "url": "/workflow/mri/", "desc": "Where QC fits in the pipeline, and what to look for at each inspection point." }
+      },
+      "Open Resources": {
+        "Artifact detection & rejection": { "url": "/open-resources/mri/artifact-detection/", "desc": "A reading list for assessing MRI quality and recognizing common artifacts." }
+      },
+      "Practice": {
+        "Rate this scan (quiz)": { "url": "/quizzes/mri/quiz1/", "img": "/assets/videos/quiz01_poster.jpg", "desc": "Walk a functional run through look → metrics → verdict." }
       }
     },
     "EEG": {
-      "children": {
-        "Physiological": {},
-        "Environmental": {},
-        "Technical":     {}
+      "Open Resources": {
+        "Methods":                        { "url": "/open-resources/eeg/method/",            "desc": "Choosing, evaluating, and reporting EEG methods." },
+        "Artifact detection & rejection": { "url": "/open-resources/eeg/artifact-detection/", "desc": "A beginner-friendly reading list for detecting, rejecting, and correcting EEG artifacts." },
+        "Packages & tools":               { "url": "/open-resources/eeg/package/",           "desc": "Open tools for organizing, cleaning, visualizing, and analyzing EEG data." }
+      },
+      "Artifacts": {
+        "Ocular": { "children": {
+          "Eye blink":               { "url": "/artifacts/eeg/",                     "img": "/assets/images/eeg_eyeBlink.png",      "desc": "Large, slow deflection with a frontal maximum; clear in vertical EOG." },
+          "Vertical eye movement":   { "url": "/artifacts/eeg/ocular-vertical-eye-movement/", "img": "/assets/images/eeg_vEyeMovement.png",  "desc": "Slow frontal deflection like a partial blink; opposite polarity above/below the eye." },
+          "Horizontal eye movement": { "url": "/artifacts/eeg/ocular-horizontal-eye-movement/", "img": "/assets/images/eeg_hEyeMovement.png",  "desc": "Step-like shift in horizontal EOG; lateralized pattern that changes with gaze." }
+        } },
+        "Muscular": { "children": {
+          "Facial / jaw / scalp": { "url": "/artifacts/eeg/muscular-facial/", "img": "/assets/images/eeg_muscularFacial.png", "desc": "High-frequency activity from jaw, facial, or scalp muscles." },
+          "Body / head / cable":  { "url": "/artifacts/eeg/muscular-body/",   "desc": "Large irregular shifts across channels; abrupt baseline changes." }
+        } },
+        "Cardiac": { "children": {
+          "ECG / heartbeat": { "url": "/artifacts/eeg/cardiac-ecg/", "img": "/assets/images/eeg_ECG.png", "desc": "Repetitive waveform synchronized with the heartbeat." }
+        } },
+        "Physiological": { "children": {
+          "Sweat": { "url": "/artifacts/eeg/physiological-sweat/", "img": "/assets/images/eeg_sweat.png", "desc": "Very slow, large-amplitude drift affecting several nearby electrodes." }
+        } },
+        "Electrode": { "children": {
+          "Electrode bridging":       { "url": "/artifacts/eeg/electrode-bridging/", "img": "/assets/images/eeg-electrode-bridging.png", "desc": "Nearby electrodes show near-identical signals and very small electrical distance." },
+          "Noisy or unstable channel": { "url": "/artifacts/eeg/electrode-noisy/", "img": "/assets/images/eeg-noise.png", "desc": "Excessive variance, persistent high-frequency noise, or bursts vs neighbors." }
+        } }
+      },
+      "QC checks": {
+        "QA checklists": { "url": "/artifacts/eeg/checklists/", "desc": "Downloadable checklists for EEG data collection and processing." }
       }
     }
-  },
-  "sections": {
-    "Equipment setup": {},
-    "Artifacts":       { "children": { "A": {}, "B": {}, "C": {}, "D": {} } },
-    "QC checks":       {},
-    "Practice":        {}
   }
 }
 </script>
@@ -61,6 +102,19 @@ title: VisualQA
 <div class="leaf-panel" id="leaf-panel" hidden>
   <p class="leaf-path" id="leaf-path"></p>
   <p class="leaf-note">Artifact content will live here — annotated examples, how to spot it, severity, and the judgment call. (Placeholder.)</p>
+</div>
+
+<!-- Artifact/quiz pages open here as an overlay in front of a blurred cascade;
+     closing returns you to exactly where you were (nothing navigates away). -->
+<div class="artifact-overlay" id="artifact-overlay" hidden>
+  <div class="artifact-scrim" id="artifact-scrim"></div>
+  <div class="artifact-panel" role="dialog" aria-modal="true" aria-label="Artifact detail">
+    <div class="artifact-bar">
+      <button class="artifact-back" id="artifact-back">← Back</button>
+      <button class="artifact-close" id="artifact-close" aria-label="Close">✕</button>
+    </div>
+    <iframe class="artifact-frame" id="artifact-frame" title="Artifact detail"></iframe>
+  </div>
 </div>
 
 <style>
@@ -96,11 +150,71 @@ title: VisualQA
     text-transform: uppercase;
     color: var(--muted);
   }
+  /* Top level (modality: MRI / EEG) — largest */
+  .river-level:first-child .pill {
+    font-size: 16px;
+    padding: 8px 22px;
+    border-radius: 3px;
+  }
+  /* Second level (sub-modality) — a step down from modality, up from the rest */
+  .river-level:nth-child(2) .pill {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
   .level-pills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 6px;
+    gap: 12px;
+  }
+  /* Card grid for content items (artifacts, quiz) */
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 640px;
+    margin-top: 4px;
+  }
+  .artifact-card {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.12s, transform 0.12s;
+  }
+  .artifact-card:hover {
+    border-color: #9a9a9a;
+    transform: translateY(-1px);
+  }
+  .artifact-card-img {
+    flex: 0 0 132px;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .artifact-card-img img {
+    width: 100%; height: 100%;
+    max-height: 108px;
+    object-fit: cover;
+    display: block;
+  }
+  .artifact-card-text {
+    flex: 1;
+    padding: 12px 16px;
+    display: flex; flex-direction: column; gap: 5px;
+    text-align: left;
+    min-width: 0;
+  }
+  .artifact-card-title { font-size: 15px; font-weight: 600; }
+  .artifact-card-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  @media (max-width: 520px) {
+    .artifact-card { flex-direction: column; }
+    .artifact-card-img { flex-basis: auto; }
+    .artifact-card-img img { max-height: 160px; }
   }
   .leaf-panel {
     margin: 28px auto 0;
@@ -112,12 +226,66 @@ title: VisualQA
   }
   .leaf-path { font-size: 14px; color: var(--text); margin: 0 0 10px; }
   .leaf-note { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.6; }
+
+  /* ── Artifact overlay ── */
+  .artifact-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6vh 6vw;                 /* blurred page shows evenly all around */
+  }
+  .artifact-overlay[hidden] { display: none; }
+  .artifact-scrim {
+    position: fixed; inset: 0;        /* full-viewport blurred/dimmed backdrop */
+    background: rgba(8,8,10,0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: overlay-fade 0.18s ease-out;
+  }
+  .artifact-panel {
+    position: relative;
+    width: min(860px, 100%); height: 100%;
+    background: rgba(255,255,255,0.9);   /* slight translucency over the blurred page */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    display: flex; flex-direction: column;
+    animation: overlay-rise 0.2s ease-out;
+  }
+  .artifact-bar {
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px 8px 14px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .artifact-back {
+    font: inherit; font-size: 13px; font-weight: 600;
+    background: none; border: 0; color: var(--text);
+    cursor: pointer; padding: 6px 4px;
+  }
+  .artifact-back:hover { text-decoration: underline; text-underline-offset: 2px; }
+  .artifact-close {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid var(--hairline); background: none; color: var(--text);
+    font-size: 14px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .artifact-close:hover { border-color: #aaaaaa; }
+  /* transparent so the panel's translucent tint (and blurred page) show through */
+  .artifact-frame { flex: 1; width: 100%; border: 0; background: transparent; }
+  @keyframes overlay-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes overlay-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-color-scheme: dark) {
+    .artifact-panel { background: rgba(17,17,17,0.9); }
+    .artifact-close { color: #ededec; }
+  }
 </style>
 
 <script>
   const DATA       = JSON.parse(document.getElementById('taxonomy').textContent);
   const MODALITIES = DATA.modalities;   // varies per branch
   const SECTIONS   = DATA.sections;     // shared shell under every sub-modality
+  const CONTENT    = DATA.content || {}; // per-modality items that fill sections
+  const BASEURL    = "{{ site.baseurl }}"; // e.g. /VisualQA — for page links
   const riverEl  = document.getElementById('river');
   const panelEl  = document.getElementById('leaf-panel');
   const pathEl   = document.getElementById('leaf-path');
@@ -126,23 +294,31 @@ title: VisualQA
   // e.g. ['MRI', 'Functional (fMRI)', 'Artifacts', 'A']
   let path = [];
 
-  const LEVEL_LABELS = ['Modality', 'Sub-modality', 'Section', 'Artifact'];
+  const LEVEL_LABELS = ['Modality', 'Section', ''];
 
-  // Children available at a given path. Levels 0–1 come from the modality tree;
-  // from the section level down, every sub-modality shares the SECTIONS shell.
-  function childrenAt(keys) {
-    if (keys.length === 0) return MODALITIES;
-    const mod = MODALITIES[keys[0]];
-    if (!mod) return null;
-    if (keys.length === 1) return mod.children || {};        // sub-modalities
-    if (!mod.children || !mod.children[keys[1]]) return null; // invalid sub-modality
-    // keys[2..] walk the shared sections shell
-    let node = { children: SECTIONS };
-    for (const k of keys.slice(2)) {
+  // The node at a given path:
+  //   level 0 → modalities (MRI/EEG)   1 → shared section shell
+  //   2+ → the per-modality content tree for that section. Content entries are
+  //   either a terminal item ({url,img,desc} → card) or a group ({children})
+  //   that drills one level deeper — so a section can be flat (MRI) or grouped (EEG).
+  function nodeAt(keys) {
+    if (keys.length === 0) return { children: MODALITIES };
+    const mod = keys[0];
+    if (!MODALITIES[mod]) return null;
+    if (keys.length === 1) return { children: SECTIONS };                // shared shell
+    const section = keys[1];
+    if (!SECTIONS[section]) return null;
+    let node = { children: (CONTENT[mod] && CONTENT[mod][section]) || {} };
+    for (const k of keys.slice(2)) {                                     // walk content tree
       if (!node.children || !node.children[k]) return null;
       node = node.children[k];
     }
-    return node.children || {};
+    return node;
+  }
+
+  function childrenAt(keys) {
+    const n = nodeAt(keys);
+    return n ? (n.children || {}) : null;
   }
 
   function render() {
@@ -157,21 +333,69 @@ title: VisualQA
       const level = document.createElement('div');
       level.className = 'river-level';
 
-      const label = document.createElement('span');
-      label.className = 'level-label';
-      label.textContent = LEVEL_LABELS[i] || 'More';
-      level.appendChild(label);
-
-      const pills = document.createElement('div');
-      pills.className = 'level-pills';
-      for (const key of Object.keys(options)) {
-        const btn = document.createElement('button');
-        btn.className = 'pill' + (path[i] === key ? ' selected' : '');
-        btn.textContent = key;
-        btn.addEventListener('click', () => choose(i, key));
-        pills.appendChild(btn);
+      const labelText = LEVEL_LABELS[i] || '';
+      if (labelText) {
+        const label = document.createElement('span');
+        label.className = 'level-label';
+        label.textContent = labelText;
+        level.appendChild(label);
       }
-      level.appendChild(pills);
+
+      const optKeys = Object.keys(options);
+      // If every option is a real page (has a url), show image cards; else pills.
+      const asCards = optKeys.every(k => {
+        const nd = nodeAt(path.slice(0, i).concat(k));
+        return nd && nd.url;
+      });
+
+      if (asCards) {
+        const grid = document.createElement('div');
+        grid.className = 'card-grid';
+        for (const key of optKeys) {
+          const node = nodeAt(path.slice(0, i).concat(key));
+          const viewUrl = node.url;
+          const card = document.createElement('a');
+          card.className = 'artifact-card';
+          card.href = BASEURL + node.url;
+          if (node.img) {
+            const wrap = document.createElement('div');
+            wrap.className = 'artifact-card-img';
+            const img = document.createElement('img');
+            img.src = BASEURL + node.img; img.alt = ''; img.loading = 'lazy';
+            wrap.appendChild(img);
+            card.appendChild(wrap);
+          }
+          const txt = document.createElement('div');
+          txt.className = 'artifact-card-text';
+          const t = document.createElement('span');
+          t.className = 'artifact-card-title'; t.textContent = key;
+          txt.appendChild(t);
+          if (node.desc) {
+            const d = document.createElement('span');
+            d.className = 'artifact-card-desc'; d.textContent = node.desc;
+            txt.appendChild(d);
+          }
+          card.appendChild(txt);
+          card.addEventListener('click', function (e) {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+            e.preventDefault();
+            openArtifact(viewUrl);
+          });
+          grid.appendChild(card);
+        }
+        level.appendChild(grid);
+      } else {
+        const pills = document.createElement('div');
+        pills.className = 'level-pills';
+        for (const key of optKeys) {
+          const pill = document.createElement('button');
+          pill.className = 'pill' + (path[i] === key ? ' selected' : '');
+          pill.textContent = key;
+          pill.addEventListener('click', () => choose(i, key));
+          pills.appendChild(pill);
+        }
+        level.appendChild(pills);
+      }
       riverEl.appendChild(level);
     }
 
@@ -180,8 +404,12 @@ title: VisualQA
   }
 
   function choose(level, key) {
-    if (path[level] === key) {
-      // Toggle off — clicking the selected pill collapses everything below it
+    if (level === 0) {
+      // Modality is a toggle: always one active, and switching it keeps the
+      // open section so the sections stay independent of modality.
+      if (path[0] !== key) path = [key, ...path.slice(1)];
+    } else if (path[level] === key) {
+      // Toggle a section off — collapse everything below it
       path = path.slice(0, level);
     } else {
       path = path.slice(0, level);
@@ -203,9 +431,74 @@ title: VisualQA
   }
 
   function updateURL() {
-    const q = path.length ? '?path=' + encodeURIComponent(path.join('/')) : location.pathname;
+    const pathStr = path.join('/');
+    const q = path.length ? '?path=' + encodeURIComponent(pathStr) : location.pathname;
     history.replaceState(null, '', q);
+    // Remember position so the "← NeuroQA" link on content pages can return here
+    try { sessionStorage.setItem('vqa-path', pathStr); } catch (e) {}
   }
+
+  // ── Artifact overlay ──────────────────────────────────────────────────
+  const overlayEl = document.getElementById('artifact-overlay');
+  const scrimEl   = document.getElementById('artifact-scrim');
+  const frameEl   = document.getElementById('artifact-frame');
+  const closeEl   = document.getElementById('artifact-close');
+  const backEl    = document.getElementById('artifact-back');
+
+  function pathQuery() {
+    return path.length ? '?path=' + encodeURIComponent(path.join('/')) : '';
+  }
+
+  // Show the overlay (display only — no history change)
+  function showArtifact(url) {
+    if (!overlayEl.hidden && frameEl.dataset.url === url) return;
+    frameEl.src = BASEURL + url;
+    frameEl.dataset.url = url;
+    overlayEl.hidden = false;
+    document.body.style.overflow = 'hidden';
+    closeEl.focus();
+  }
+
+  // User opens an artifact: show it and give it its own shareable URL
+  // (…?path=…&view=/artifacts/…), pushing one history entry.
+  function openArtifact(url) {
+    showArtifact(url);
+    const q = pathQuery();
+    const sep = q ? '&' : '?';
+    history.pushState({ vqaModal: url }, '', q + sep + 'view=' + encodeURIComponent(url));
+  }
+
+  function hideOverlay() {
+    if (overlayEl.hidden) return;
+    overlayEl.hidden = true;
+    frameEl.src = 'about:blank';   // stop any video/audio playing inside
+    frameEl.dataset.url = '';
+    document.body.style.overflow = '';
+  }
+
+  // The ✕, the scrim, and Esc all close. If we pushed a history entry when
+  // opening, pop it (so browser Back matches); if we arrived via a shared
+  // ?view= link, just drop the param.
+  function requestClose() {
+    if (overlayEl.hidden) return;
+    if (history.state && history.state.vqaModal) {
+      history.back();
+    } else {
+      hideOverlay();
+      history.replaceState(null, '', pathQuery() || location.pathname);
+    }
+  }
+  closeEl.addEventListener('click', requestClose);
+  backEl.addEventListener('click', requestClose);
+  scrimEl.addEventListener('click', requestClose);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') requestClose();
+  });
+  // Keep the overlay in sync with Back/Forward navigation
+  window.addEventListener('popstate', () => {
+    const view = new URLSearchParams(location.search).get('view');
+    if (view) showArtifact(view); else hideOverlay();
+  });
 
   // Restore a shared path from the URL
   (function () {
@@ -219,11 +512,16 @@ title: VisualQA
       }
       path = restored;
     }
+    // A modality is always active so the sections show independently; default MRI.
+    if (path.length === 0) path = ['MRI'];
     render();
+    // Shared deep-link straight into an open artifact (…&view=/artifacts/…)
+    const view = new URLSearchParams(location.search).get('view');
+    if (view) showArtifact(view);
   })();
 </script>
 
 <footer class="footer">
-  Built at Neurohackademy 2026 · <a href="https://github.com/henrfo/VisualQA" target="_blank" rel="noopener noreferrer">VisualQA on GitHub</a>
+  Built at Neurohackademy 2026 · <a href="https://github.com/henrfo/VisualQA" target="_blank" rel="noopener noreferrer">NeuroQA on GitHub</a>
 </footer>
 

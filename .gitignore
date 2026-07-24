@@ -5,3 +5,7 @@ __pycache__/
 _site/
 .jekyll-cache/
 .wrangler/
+
+# Local Ruby gem bundle — never commit (thousands of files)
+vendor/
+.bundle/

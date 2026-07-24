@@ -1,0 +1,71 @@
+---
+layout: default
+title: Cardiac ECG / heartbeat
+---
+
+<section class="artifact-identification">
+  <h2>ECG / heartbeat</h2>
+
+  <h3>What you will see</h3>
+  <p>
+    Repetitive waveform synchronized with the heartbeat; may be stronger near
+    inferior or reference electrodes.
+  </p>
+
+  <figure class="qc-figure">
+    <img
+      src="/VisualQA/assets/images/eeg-heartbeat-artifact.png"
+      alt="EEG recording showing a repetitive waveform synchronized with the heartbeat.">
+  </figure>
+
+  <aside class="qc-info-box qc-judgement-box">
+    <h3>Judgment calls and decision-making considerations</h3>
+    <ul>
+      <li>Is the artifact visible in only a few electrodes or broadly distributed?</li>
+      <li>Is it random relative to the experimental event?</li>
+      <li>Is a reliable ECG channel available for identification?</li>
+    </ul>
+  </aside>
+
+  <aside class="qc-info-box qc-solution-box">
+    <h3>Possible solutions &amp; responses</h3>
+    <ul>
+      <li>Record ECG when relevant.</li>
+      <li>Use ICA, SSP, or regression when the component is clearly identified.</li>
+      <li>Retain the data when contamination is minimal and not event-related.</li>
+    </ul>
+  </aside>
+
+  <section class="references" aria-label="References">
+    <h3>References</h3>
+    <p class="references-placeholder">Britton JW, Frey LC, Hopp JLet al., authors; St. Louis EK, Frey LC, editors. Electroencephalography (EEG): An Introductory Text and Atlas of Normal and Abnormal Findings in Adults, Children, and Infants [Internet]. Chicago: American Epilepsy Society; 2016. Appendix 4. Common Artifacts During EEG Recording. Available from: https://www.ncbi.nlm.nih.gov/books/NBK390358/</p>
+  </section>
+</section>
+
+<style>
+  .qc-figure { margin: 1.5rem 0; }
+  .qc-figure > img { width: 100%; height: auto; display: block; }
+  .qc-info-box {
+    margin: 1.25rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 4px solid;
+  }
+  .qc-info-box h3 { margin-top: 0; }
+  .qc-info-box ul { margin-bottom: 0; }
+  .qc-judgement-box {
+    border-color: #4f76a1;
+    background: #eaf1f8;
+  }
+  .qc-solution-box {
+    border-color: #3f8068;
+    background: #e7f3ee;
+  }
+  .references {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+  }
+  .references-placeholder {
+    color: #6b6a65;
+    font-style: italic;
+  }
+</style>

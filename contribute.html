@@ -15,7 +15,7 @@ permalink: /contribute/
 
 <!-- TODO: this form has no backend yet. openmritools posts to a Cloudflare webhook-bridge
      worker that opens a GitHub Issue; that worker was deliberately not copied here.
-     Until one is deployed for VisualQA, the form is disabled so it cannot post to the
+     Until one is deployed for NeuroQA, the form is disabled so it cannot post to the
      MRI site's worker and file issues in the wrong repo. To enable: deploy a worker and
      set its URL as the action below, then drop the `disabled` on the submit button. -->
 <form id="suggest-form" class="suggest-form" action="" method="POST" onsubmit="return false">
@@ -63,7 +63,7 @@ permalink: /contribute/
     </label>
   </div>
 
-  <button type="submit" class="submit-btn" disabled title="Not wired up yet — no submission backend for VisualQA">Submit</button>
+  <button type="submit" class="submit-btn" disabled title="Not wired up yet — no submission backend for NeuroQA">Submit</button>
   <p class="tool-hint">All suggestions are tracked publicly — <a href="https://github.com/henrfo/VisualQA/issues?q=is%3Aissue+label%3Asuggestion%2Cedit" target="_blank" rel="noopener noreferrer">see pending suggestions on GitHub</a>.</p>
 </form>
 

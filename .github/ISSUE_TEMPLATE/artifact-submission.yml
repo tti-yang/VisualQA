@@ -1,0 +1,66 @@
+name: Submit a page
+description: Pick where it goes in the river, then just write. Drag in any images.
+title: "[Page] "
+labels: ["submission"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      placeholder: e.g. Head motion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: modality
+    attributes:
+      label: Modality
+      options:
+        - MRI
+        - EEG
+    validations:
+      required: true
+
+  - type: dropdown
+    id: submodality
+    attributes:
+      label: Sub-modality
+      options:
+        - "Functional (fMRI)"
+        - "Structural"
+        - "Diffusion (dMRI)"
+        - "EEG — A"
+        - "EEG — B"
+        - "EEG — C"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: section
+    attributes:
+      label: Section (where in the river)
+      description: Which part of the page structure it belongs under.
+      options:
+        - Open Resources
+        - Artifacts
+        - QC checks
+        - Practice
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: custom_placement
+    attributes:
+      label: New sub-modality or section? (optional)
+      description: If yours isn't in the lists above, name it here and we'll add it to the river.
+      placeholder: e.g. Perfusion (ASL), or a new section name
+
+  - type: textarea
+    id: body
+    attributes:
+      label: Write the page
+      description: Just start writing. Drag and drop images or videos straight into this box. Don't worry about getting it perfect — submit now and come back to edit and revise the issue anytime.
+    validations:
+      required: true

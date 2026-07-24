@@ -1,0 +1,72 @@
+---
+layout: default
+title: Facial, jaw, or scalp muscle activity
+---
+
+<section class="artifact-identification">
+  <h2>Facial, jaw, or scalp muscle activity</h2>
+
+  <h3>What you will see</h3>
+  <p>
+    High-frequency activity.
+  </p>
+
+  <figure class="qc-figure">
+    <img
+      src="/VisualQA/assets/images/eeg-facial-jaw-activity.png"
+      alt="EEG recording showing high-frequency activity caused by facial, jaw, or scalp muscle tension.">
+  </figure>
+
+  <aside class="qc-info-box qc-judgement-box">
+    <h3>Judgment calls and decision-making considerations</h3>
+    <ul>
+      <li>Is the activity brief or sustained?</li>
+      <li>Is it localized to channels outside the region of interest?</li>
+      <li>Is it linked to the participant&rsquo;s response or experimental condition?</li>
+      <li>Would removing the affected channels distort the spatial analysis?</li>
+    </ul>
+  </aside>
+
+  <aside class="qc-info-box qc-solution-box">
+    <h3>Possible solutions &amp; responses</h3>
+    <ul>
+      <li>Reduce muscle tension during recording.</li>
+      <li>Annotate or reject contaminated segments.</li>
+      <li>Remove clearly identified ICA components.</li>
+      <li>Exclude persistently contaminated channels when justified.</li>
+    </ul>
+  </aside>
+
+  <section class="references" aria-label="References">
+    <h3>References</h3>
+    <p class="references-placeholder">Britton JW, Frey LC, Hopp JLet al., authors; St. Louis EK, Frey LC, editors. Electroencephalography (EEG): An Introductory Text and Atlas of Normal and Abnormal Findings in Adults, Children, and Infants [Internet]. Chicago: American Epilepsy Society; 2016. Appendix 4. Common Artifacts During EEG Recording. Available from: https://www.ncbi.nlm.nih.gov/books/NBK390358/</p>
+  </section>
+</section>
+
+<style>
+  .qc-figure { margin: 1.5rem 0; }
+  .qc-figure > img { width: 100%; height: auto; display: block; }
+  .qc-info-box {
+    margin: 1.25rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 4px solid;
+  }
+  .qc-info-box h3 { margin-top: 0; }
+  .qc-info-box ul { margin-bottom: 0; }
+  .qc-judgement-box {
+    border-color: #4f76a1;
+    background: #eaf1f8;
+  }
+  .qc-solution-box {
+    border-color: #3f8068;
+    background: #e7f3ee;
+  }
+  .references {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+  }
+  .references-placeholder {
+    color: #6b6a65;
+    font-style: italic;
+  }
+</style>

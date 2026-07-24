@@ -1,0 +1,379 @@
+---
+layout: default
+title: EEG Packages and Tools
+---
+
+<main class="resource-page">
+  <header class="resource-header">
+    <p class="resource-kicker">EEG Open Resources</p>
+    <h1>Packages &amp; Tools</h1>
+    <p class="resource-intro">
+      A beginner-friendly collection of open tools for organizing, cleaning,
+      visualizing, and analyzing EEG data. Each entry explains what the tool
+      is for and where a new user can start.
+    </p>
+  </header>
+
+  <section class="resource-search" aria-labelledby="resource-search-title">
+    <label id="resource-search-title" for="resource-search-input">Search resources</label>
+    <div class="search-control">
+      <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="6.5"></circle>
+        <path d="m16 16 4 4"></path>
+      </svg>
+      <input
+        id="resource-search-input"
+        type="search"
+        placeholder="Try “Python”, “artifact”, “BIDS”, or “visualization”"
+        autocomplete="off"
+        aria-describedby="resource-search-status"
+      >
+    </div>
+    <p id="resource-search-status" class="search-status" aria-live="polite">
+      Showing all 5 resources
+    </p>
+  </section>
+
+  <aside class="reading-path" aria-labelledby="reading-path-title">
+    <h2 id="reading-path-title">New to this topic?</h2>
+    <p>
+      These resources solve different problems. Use <a href="#bids">EEG-BIDS</a>
+      to organize and describe a dataset. Choose <a href="#mne-python">MNE-Python</a>,
+      <a href="#brainstorm">Brainstorm</a>, or <a href="#emegs">EMEGS</a> for
+      analysis based on your workflow and programming experience. Add
+      <a href="#autoreject">Autoreject</a> when you need data-driven trial
+      rejection and sensor repair in an MNE workflow.
+    </p>
+  </aside>
+
+  <section class="resource-list" aria-label="EEG packages and tools">
+    <article class="resource-card" id="emegs">
+      <div class="resource-meta">
+        <span class="resource-tag">MATLAB or standalone</span>
+        <span class="resource-tag">Psychophysiology</span>
+      </div>
+      <h2>EMEGS</h2>
+      <p class="citation">
+        ElectroMagnetic EncephaloGraphy Software
+      </p>
+      <div class="beginner-notes">
+        <p><strong>What it is:</strong> Open-source software for preprocessing, visualizing, and statistically analyzing psychophysiological EEG/MEG data. It is available as a MATLAB package and as a standalone Qt application.</p>
+        <p><strong>Start here:</strong> First choose the MATLAB or standalone version, then check its documentation and example workflow. The standalone option is useful if you do not have MATLAB.</p>
+      </div>
+      <div class="resource-actions">
+        <a class="resource-button primary" href="https://www.emegs.org/" target="_blank" rel="noopener">Official website</a>
+        <a class="resource-button" href="https://www.emegs.org/doc/" target="_blank" rel="noopener">Documentation</a>
+        <a class="resource-button" href="https://www.emegs.org/download/" target="_blank" rel="noopener">Download</a>
+      </div>
+    </article>
+
+    <article class="resource-card" id="autoreject">
+      <div class="resource-meta">
+        <span class="resource-tag">Python</span>
+        <span class="resource-tag">Artifact handling</span>
+      </div>
+      <h2>Autoreject</h2>
+      <p class="citation">
+        Automated rejection and repair for M/EEG epochs
+      </p>
+      <div class="beginner-notes">
+        <p><strong>What it is:</strong> A Python library that learns thresholds from M/EEG data to reject bad trials and repair bad sensors. It works directly with epoched MNE-Python data.</p>
+        <p><strong>Start here:</strong> Read the short quickstart, then open the automatic repair example. Compare its cleaned epochs and rejection log with the raw data instead of treating the output as automatically correct.</p>
+      </div>
+      <div class="resource-actions">
+        <a class="resource-button primary" href="https://autoreject.github.io/stable/index.html" target="_blank" rel="noopener">Documentation &amp; quickstart</a>
+        <a class="resource-button" href="https://autoreject.github.io/stable/auto_examples/plot_auto_repair.html" target="_blank" rel="noopener">Repair example</a>
+        <a class="resource-button" href="https://github.com/autoreject/autoreject" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
+    <article class="resource-card" id="mne-python">
+      <div class="resource-meta">
+        <span class="resource-tag">Python</span>
+        <span class="resource-tag recommended">Full analysis ecosystem</span>
+      </div>
+      <h2>MNE-Python</h2>
+      <p class="citation">
+        Open-source Python software for human neurophysiology
+      </p>
+      <div class="beginner-notes">
+        <p><strong>What it is:</strong> A broad Python package for importing, exploring, visualizing, preprocessing, and analyzing MEG, EEG, sEEG, ECoG, NIRS, and related data.</p>
+        <p><strong>Start here:</strong> Follow the introductory tutorials in order: data structures, continuous data, events and epochs, preprocessing, then evoked responses. Use the example gallery when you need a task-specific workflow.</p>
+      </div>
+      <div class="resource-actions">
+        <a class="resource-button primary" href="https://mne.tools/stable/index.html" target="_blank" rel="noopener">Official documentation</a>
+        <a class="resource-button" href="https://mne.tools/stable/auto_tutorials/index.html" target="_blank" rel="noopener">Tutorials</a>
+        <a class="resource-button" href="https://mne.tools/stable/install/index.html" target="_blank" rel="noopener">Install</a>
+      </div>
+    </article>
+
+    <article class="resource-card" id="bids">
+      <div class="resource-meta">
+        <span class="resource-tag">Data standard</span>
+        <span class="resource-tag">Organization &amp; sharing</span>
+      </div>
+      <h2>EEG-BIDS</h2>
+      <p class="citation">
+        Brain Imaging Data Structure specification for EEG
+      </p>
+      <div class="beginner-notes">
+        <p><strong>What it is:</strong> A community standard for consistently naming, organizing, and describing EEG datasets and their metadata. It is a specification, not an analysis package.</p>
+        <p><strong>Start here:</strong> Begin with the BIDS Starter Kit, then use the EEG-specific page to check required files, accepted recording formats, electrode and coordinate metadata, events, and sidecar JSON fields.</p>
+      </div>
+      <div class="resource-actions">
+        <a class="resource-button primary" href="https://bids-specification.readthedocs.io/en/latest/modality-specific-files/electroencephalography.html" target="_blank" rel="noopener">EEG specification</a>
+        <a class="resource-button" href="https://bids.neuroimaging.io/get_started.html" target="_blank" rel="noopener">Getting started</a>
+        <a class="resource-button" href="https://bids-standard.github.io/bids-validator/" target="_blank" rel="noopener">BIDS Validator</a>
+      </div>
+    </article>
+
+    <article class="resource-card" id="brainstorm">
+      <div class="resource-meta">
+        <span class="resource-tag">Graphical interface</span>
+        <span class="resource-tag">No coding required</span>
+      </div>
+      <h2>Brainstorm</h2>
+      <p class="citation">
+        Open-source application for multimodal brain recordings
+      </p>
+      <div class="beginner-notes">
+        <p><strong>What it is:</strong> A free, open-source application for analyzing MEG, EEG, fNIRS, ECoG, depth-electrode, and electrophysiology data through a graphical interface, with scripting available for batch workflows.</p>
+        <p><strong>Start here:</strong> Read the introduction, install the standalone version if you do not have MATLAB, and work through the EEG/ERP tutorials before building your own analysis pipeline.</p>
+      </div>
+      <div class="resource-actions">
+        <a class="resource-button primary" href="https://neuroimage.usc.edu/brainstorm/Introduction" target="_blank" rel="noopener">Official website</a>
+        <a class="resource-button" href="https://neuroimage.usc.edu/brainstorm/Tutorials" target="_blank" rel="noopener">Tutorials</a>
+        <a class="resource-button" href="https://github.com/brainstorm-tools/brainstorm3" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+  </section>
+
+  <div id="resource-no-results" class="no-results" hidden>
+    <h2>No matching resources</h2>
+    <p>Try a broader term, a programming language, or a task such as “artifact” or “organization.”</p>
+    <button id="resource-search-reset" type="button">Clear search</button>
+  </div>
+
+  <p class="resource-footnote">
+    These links point to official project websites, documentation, tutorials,
+    and source-code repositories. Software features and installation
+    requirements can change, so check the linked documentation before use.
+  </p>
+</main>
+
+<style>
+  .resource-page { max-width: 800px; margin: 0 auto; }
+  .resource-header { margin-bottom: 1.75rem; }
+  .resource-kicker {
+    margin-bottom: 0.35rem;
+    color: #4f76a1;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .resource-header h1 {
+    margin-bottom: 0.65rem;
+    font-size: clamp(1.8rem, 5vw, 2.65rem);
+    line-height: 1.12;
+  }
+  .resource-intro {
+    max-width: 680px;
+    color: #565652;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .resource-search {
+    margin: 1.5rem 0;
+    padding: 1rem 1.15rem;
+    border: 1px solid #d7e1eb;
+    border-radius: 7px;
+    background: #f7fafc;
+  }
+  .resource-search label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #273d52;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .search-control { position: relative; }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.8rem;
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: #697b8c;
+    stroke-linecap: round;
+    stroke-width: 2;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .search-control input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.72rem 0.85rem 0.72rem 2.35rem;
+    border: 1px solid #aebdca;
+    border-radius: 5px;
+    background: #fff;
+    color: #292927;
+    font: inherit;
+  }
+  .search-control input:focus {
+    border-color: #4f76a1;
+    outline: 3px solid #dce9f5;
+  }
+  .search-status {
+    margin: 0.45rem 0 0;
+    color: #68737d;
+    font-size: 0.76rem;
+  }
+  .reading-path {
+    margin: 1.5rem 0 2rem;
+    padding: 1rem 1.15rem;
+    border-left: 4px solid #4f76a1;
+    background: #eaf1f8;
+  }
+  .reading-path h2 { margin-bottom: 0.35rem; font-size: 1rem; }
+  .reading-path p { line-height: 1.6; }
+  .reading-path a { color: #244f78; }
+  .resource-list { display: grid; gap: 1rem; }
+  .resource-card {
+    padding: 1.15rem 1.2rem;
+    border: 1px solid #deddd8;
+    border-radius: 7px;
+    background: #fff;
+  }
+  .resource-card[hidden] { display: none; }
+  .resource-card:target {
+    border-color: #4f76a1;
+    box-shadow: 0 0 0 3px #eaf1f8;
+  }
+  .resource-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 0.6rem;
+  }
+  .resource-year,
+  .resource-tag {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: #f0efeb;
+    color: #55544f;
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+  .resource-tag.recommended { background: #e7f3ee; color: #25624d; }
+  .resource-card h2 {
+    margin-bottom: 0.4rem;
+    font-size: 1.08rem;
+    line-height: 1.35;
+  }
+  .citation {
+    margin-bottom: 0.85rem;
+    color: #66645f;
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+  .beginner-notes {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0.85rem 0 1rem;
+  }
+  .beginner-notes p { line-height: 1.58; }
+  .resource-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .resource-button {
+    display: inline-block;
+    padding: 0.38rem 0.65rem;
+    border: 1px solid #c8c7c2;
+    border-radius: 4px;
+    color: #292927;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .resource-button:hover { border-color: #777570; }
+  .resource-button.primary {
+    border-color: #356c58;
+    background: #e7f3ee;
+    color: #205441;
+  }
+  .access-note {
+    margin-top: 0.65rem;
+    color: #74726d;
+    font-size: 0.76rem;
+    font-style: italic;
+  }
+  .resource-footnote {
+    margin-top: 1.4rem;
+    color: #74726d;
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+  .no-results {
+    padding: 2rem 1.25rem;
+    border: 1px dashed #aebdca;
+    border-radius: 7px;
+    text-align: center;
+  }
+  .no-results h2 { margin-bottom: 0.35rem; font-size: 1.05rem; }
+  .no-results p { color: #66645f; }
+  .no-results button {
+    margin-top: 0.85rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid #4f76a1;
+    border-radius: 4px;
+    background: #eaf1f8;
+    color: #244f78;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    .resource-card { padding: 1rem; }
+    .resource-button { flex: 1 1 auto; text-align: center; }
+  }
+</style>
+
+<script>
+  (function () {
+    var input = document.getElementById("resource-search-input");
+    var cards = Array.from(document.querySelectorAll(".resource-card"));
+    var status = document.getElementById("resource-search-status");
+    var noResults = document.getElementById("resource-no-results");
+    var reset = document.getElementById("resource-search-reset");
+
+    function updateResults() {
+      var query = input.value.trim().toLocaleLowerCase();
+      var matches = 0;
+
+      cards.forEach(function (card) {
+        var isMatch = !query || card.textContent.toLocaleLowerCase().includes(query);
+        card.hidden = !isMatch;
+        if (isMatch) matches += 1;
+      });
+
+      noResults.hidden = matches !== 0;
+      status.textContent = query
+        ? matches + (matches === 1 ? " resource found" : " resources found")
+        : "Showing all " + cards.length + " resources";
+    }
+
+    input.addEventListener("input", updateResults);
+    reset.addEventListener("click", function () {
+      input.value = "";
+      updateResults();
+      input.focus();
+    });
+  }());
+</script>
