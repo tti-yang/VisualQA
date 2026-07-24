@@ -1,12 +1,12 @@
 ---
 layout: default
-title: VisualQA
+title: NeuroQA
 ---
 
 <header>
   <div class="site-header-row">
     <div class="site-header-left">
-      <h1 class="site-title"><a href="{{ '/' | relative_url }}">VisualQA</a></h1>
+      <h1 class="site-title"><a href="{{ '/' | relative_url }}">NeuroQA</a></h1>
       <p class="site-subtitle">Building an open educational resource for neuroimaging quality assurance.</p>
     </div>
     <nav class="site-nav">
@@ -429,7 +429,7 @@ title: VisualQA
     const pathStr = path.join('/');
     const q = path.length ? '?path=' + encodeURIComponent(pathStr) : location.pathname;
     history.replaceState(null, '', q);
-    // Remember position so the "← VisualQA" link on content pages can return here
+    // Remember position so the "← NeuroQA" link on content pages can return here
     try { sessionStorage.setItem('vqa-path', pathStr); } catch (e) {}
   }
 
@@ -517,6 +517,6 @@ title: VisualQA
 </script>
 
 <footer class="footer">
-  Built at Neurohackademy 2026 · <a href="https://github.com/henrfo/VisualQA" target="_blank" rel="noopener noreferrer">VisualQA on GitHub</a>
+  Built at Neurohackademy 2026 · <a href="https://github.com/henrfo/VisualQA" target="_blank" rel="noopener noreferrer">NeuroQA on GitHub</a>
 </footer>
 
