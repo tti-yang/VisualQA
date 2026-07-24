@@ -104,6 +104,42 @@ permalink: /artifacts/mri/head-motion/
     displacement.
   </p>
 
+  <figure class="qc-figure">
+    <img src="/VisualQA/assets/images/mriqc_bold_traces.png" alt="Four stacked panels from an MRIQC functional report: slice-wise background noise, percentage of outlier voxels, DVARS, and framewise displacement, each plotted against time across the run.">
+    <figcaption>
+      MRIQC functional report, summary traces. Outliers, DVARS and framewise
+      displacement share a time axis so that events can be read across panels.
+      The horizontal rule on the FD panel marks 0.2&nbsp;mm. Here mean FD is
+      0.097&nbsp;mm with a single excursion to 0.403&nbsp;mm, and DVARS and the
+      outlier fraction rise at the same moment &mdash; a discrete motion event
+      that reached the data, on an otherwise quiet run.
+      Data from the MiND study.<sup><a href="#ref-mind">1</a></sup>
+    </figcaption>
+  </figure>
+
+  <p>
+    Reading these together is what distinguishes the two panels. FD is computed
+    from the realignment parameters and reports that the head <em>moved</em>;
+    DVARS is computed from the image data and reports that the signal
+    <em>changed</em>. A spike in both is a motion event worth acting on. A spike
+    in FD alone means the movement did not appreciably perturb the signal, and
+    censoring on FD would discard a usable volume; a spike in DVARS alone points
+    somewhere other than motion.
+  </p>
+
+  <figure class="qc-figure">
+    <img src="/VisualQA/assets/images/mriqc_carpetplot.png" alt="Carpet plot: a grayscale matrix with voxels on the vertical axis grouped into coloured tissue classes and time in seconds on the horizontal axis.">
+    <figcaption>
+      Carpet plot for the same run. Each row is a voxel's time series; the
+      colour bar at the left groups rows by tissue class (cortical gray matter,
+      subcortical gray matter, cerebellum, then white matter and CSF). What
+      matters is whether a vertical band spans <em>all</em> tissue classes at
+      once, and whether it coincides with an FD spike above. A band confined to
+      a single class more often reflects physiology than motion.
+      Data from the MiND study.<sup><a href="#ref-mind">1</a></sup>
+    </figcaption>
+  </figure>
+
   <h3>Motion is a confound, not only an artifact</h3>
 
   <p>
