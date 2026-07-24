@@ -4,8 +4,6 @@ title: MRI Quality Control Workflow
 permalink: /workflow/mri/
 ---
 
-{% assign art = '/artifacts/mri' %}
-
 <main class="workflow-page">
   <header class="resource-header">
     <p class="resource-kicker">MRI Open Resources</p>
@@ -102,26 +100,26 @@ permalink: /workflow/mri/
     <ul class="check-items">
       <li>
         <label><input type="checkbox"><span class="item-name">Head motion</span><span class="item-desc">Blurred tissue boundaries and concentric ringing bands. Severe ringing is grounds for exclusion.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/head-motion/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Eye spillover</span><span class="item-desc">Bright streaks propagating from the orbits into brain tissue along the phase-encode direction.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/eye-spill' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/eye-spill/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Coil failure</span><span class="item-desc">Regional signal loss or noise amplification matching the footprint of one coil element.</span></label>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Local artifact</span><span class="item-desc">Focal distortion, spikes, or dropout not attributable to any of the categories above. Includes dental and implant susceptibility effects.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/susceptibility-artifact' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/susceptibility-artifact/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Wrap-around (aliasing)</span><span class="item-desc">Anatomy outside the field of view folded onto the opposite edge of the image. Note whether it overlaps brain tissue.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/wraparound' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/wraparound/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Ghosting</span><span class="item-desc">Faint displaced replicas of the head, offset along the phase-encode axis.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/aliasing-ghost/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Intensity non-uniformity</span><span class="item-desc">Smooth bias field across the volume. Mild is expected and correctable; strong gradients can break segmentation downstream.</span></label>
@@ -156,7 +154,7 @@ permalink: /workflow/mri/
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Motion visible in the movie</span><span class="item-desc">Sudden jumps, slow drift, or breathing-locked oscillation. Note when in the run it happens.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/head-motion/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Initial transient</span><span class="item-desc">Non-steady-state volumes at the start of the run. Confirm how many the pipeline discards and whether that is enough.</span></label>
@@ -166,15 +164,15 @@ permalink: /workflow/mri/
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Susceptibility dropout</span><span class="item-desc">Signal voids near air-tissue boundaries. Irrecoverable dropout across a region of interest is grounds for exclusion.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/susceptibility-artifact' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/susceptibility-artifact/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Ghosting</span><span class="item-desc">N/2 ghosting along the phase-encode axis. Excessive ghosting is grounds for exclusion.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/aliasing-ghost/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Eye spillover</span><span class="item-desc">Signal from eye movement leaking into frontal slices.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/eye-spill' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/eye-spill/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Coil failure</span><span class="item-desc">Regional dropout or elevated noise stable across the whole run.</span></label>
@@ -228,7 +226,7 @@ permalink: /workflow/mri/
     <ul class="check-items">
       <li>
         <label><input type="checkbox"><span class="item-name">Spatial realignment</span><span class="item-desc">Inspect the motion parameter traces alongside the realigned movie. Large residual motion after realignment is a different problem from large motion before it.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/head-motion/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Coregistration to anatomical</span><span class="item-desc">Overlay the mean functional on the subject's own T1w and check alignment at the ventricles and cortical edge.</span></label>
@@ -241,31 +239,31 @@ permalink: /workflow/mri/
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Ghost-to-signal ratio, x</span><span class="item-desc">Compare against the lab threshold. Set this from the 95th percentile of your own sample rather than an external value, and record the threshold in use: <span class="threshold-slot">threshold: ______</span></span></label>
-        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/aliasing-ghost/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Ghost-to-signal ratio, y</span><span class="item-desc">As above, computed separately for the y direction: <span class="threshold-slot">threshold: ______</span></span></label>
-        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/aliasing-ghost/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Carpet plot and confound traces</span><span class="item-desc">Look for banding that tracks framewise displacement or DVARS. This catches problems the summary numbers average away.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/head-motion/">Examples</a>
       </li>
       <li>
         <label><input type="checkbox"><span class="item-name">Residual signal artifacts</span><span class="item-desc">Visual inspection of the processed movie for anything preprocessing introduced or failed to remove.</span></label>
       </li>
       <li class="optional">
         <label><input type="checkbox"><span class="item-name">Unwarping / distortion correction <span class="opt-tag">optional</span></span><span class="item-desc">Where fieldmaps or reverse phase-encode data are available, check that stretching in frontal and temporal regions improved rather than worsened.</span></label>
-        <a class="artifact-link" href="{{ art | append: '/susceptibility-artifact' | relative_url }}">Examples</a>
+        <a class="artifact-link" href="/VisualQA/artifacts/mri/susceptibility-artifact/">Examples</a>
       </li>
     </ul>
   </section>
 
   <p class="resource-footnote">
     Artifact definitions follow the MRIQC and fMRIPrep quality control protocols.
-    See the <a href="{{ '/openResources/MRI/Artifact Detection and Rejection/' | relative_url }}">MRI QC resources page</a>
+    See the <a href="/VisualQA/openResources/MRI/Artifact%20Detection%20and%20Rejection/">MRI QC resources page</a>
     for the underlying papers and tool documentation, and
-    <a href="{{ art | append: '/head-motion' | relative_url }}">the MRI artifact pages</a> for annotated examples.
+    <a href="/VisualQA/artifacts/mri/head-motion/">the MRI artifact pages</a> for annotated examples.
   </p>
 </main>
 
