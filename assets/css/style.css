@@ -44,9 +44,15 @@ body {
    text globally so they stay readable in the dark overlay (current + future pages). */
 .qc-decision-box, .qc-judgement-box, .qc-solution-box { color: #1a1a1a; }
 
-/* Resource reading-list pages are light-designed; pin a dark base text colour
-   so uncovered text stays readable in the dark overlay. */
-.resource-page { color: #1a1a1a; }
+/* Resource reading-list pages hardcode dark text (light-only design). Render
+   them as a self-contained light card so they read correctly everywhere —
+   light/dark, in the overlay or standalone — without dark-on-dark text. */
+.resource-page {
+  background: #ffffff;
+  color: #1a1a1a;
+  padding: 28px 30px;
+  border-radius: 10px;
+}
 
 .site-topbar-brand {
   font-size: 13px;
