@@ -54,6 +54,29 @@ title: VisualQA
       "Practice": {
         "Rate this scan (quiz)": { "url": "/quizzes/mri/quiz1/", "img": "/assets/videos/quiz01_poster.jpg", "desc": "Walk a functional run through look → metrics → verdict." }
       }
+    },
+    "EEG": {
+      "Artifacts": {
+        "Ocular": { "children": {
+          "Eye blink":               { "url": "/artifacts/EEG/",                     "img": "/assets/images/eeg_eyeBlink.png",      "desc": "Large, slow deflection with a frontal maximum; clear in vertical EOG." },
+          "Vertical eye movement":   { "url": "/artifacts/EEG/ocular-vEyeMovement/", "img": "/assets/images/eeg_vEyeMovement.png",  "desc": "Slow frontal deflection like a partial blink; opposite polarity above/below the eye." },
+          "Horizontal eye movement": { "url": "/artifacts/EEG/ocular-hEyeMovement/", "img": "/assets/images/eeg_hEyeMovement.png",  "desc": "Step-like shift in horizontal EOG; lateralized pattern that changes with gaze." }
+        } },
+        "Muscular": { "children": {
+          "Facial / jaw / scalp": { "url": "/artifacts/EEG/Muscular-facial/", "img": "/assets/images/eeg_muscularFacial.png", "desc": "High-frequency activity from jaw, facial, or scalp muscles." },
+          "Body / head / cable":  { "url": "/artifacts/EEG/Muscular-body/",   "desc": "Large irregular shifts across channels; abrupt baseline changes." }
+        } },
+        "Cardiac": { "children": {
+          "ECG / heartbeat": { "url": "/artifacts/EEG/Cardia-ECG/", "img": "/assets/images/eeg_ECG.png", "desc": "Repetitive waveform synchronized with the heartbeat." }
+        } },
+        "Physiological": { "children": {
+          "Sweat": { "url": "/artifacts/EEG/Physiological-sweat/", "img": "/assets/images/eeg_sweat.png", "desc": "Very slow, large-amplitude drift affecting several nearby electrodes." }
+        } },
+        "Electrode": { "children": {
+          "Electrode bridging":       { "url": "/artifacts/EEG/electrode-bridging/", "desc": "Nearby electrodes show near-identical signals and very small electrical distance." },
+          "Noisy or unstable channel": { "url": "/artifacts/EEG/electrode-noisy/",  "desc": "Excessive variance, persistent high-frequency noise, or bursts vs neighbors." }
+        } }
+      }
     }
   }
 }
@@ -260,17 +283,22 @@ title: VisualQA
 
   // The node at a given path:
   //   level 0 → modalities (MRI/EEG)   1 → shared section shell
-  //   2 → per-modality items in that section   3 → a single item (may have .url)
+  //   2+ → the per-modality content tree for that section. Content entries are
+  //   either a terminal item ({url,img,desc} → card) or a group ({children})
+  //   that drills one level deeper — so a section can be flat (MRI) or grouped (EEG).
   function nodeAt(keys) {
     if (keys.length === 0) return { children: MODALITIES };
-    const [mod, section, item] = keys;
+    const mod = keys[0];
     if (!MODALITIES[mod]) return null;
     if (keys.length === 1) return { children: SECTIONS };                // shared shell
+    const section = keys[1];
     if (!SECTIONS[section]) return null;
-    const items = (CONTENT[mod] && CONTENT[mod][section]) || {};
-    if (keys.length === 2) return { children: items };                   // per-modality items
-    if (!items[item]) return null;
-    return items[item];                                                  // terminal item
+    let node = { children: (CONTENT[mod] && CONTENT[mod][section]) || {} };
+    for (const k of keys.slice(2)) {                                     // walk content tree
+      if (!node.children || !node.children[k]) return null;
+      node = node.children[k];
+    }
+    return node;
   }
 
   function childrenAt(keys) {
