@@ -44,6 +44,10 @@ body {
    text globally so they stay readable in the dark overlay (current + future pages). */
 .qc-decision-box, .qc-judgement-box, .qc-solution-box { color: #1a1a1a; }
 
+/* Resource reading-list pages are light-designed; pin a dark base text colour
+   so uncovered text stays readable in the dark overlay. */
+.resource-page { color: #1a1a1a; }
+
 .site-topbar-brand {
   font-size: 13px;
   font-weight: 600;
