@@ -1,0 +1,679 @@
+---
+layout: default
+title: MRI Quality Control Workflow
+permalink: /workflow/mri/
+---
+
+{% assign art = '/artifacts/mri' %}
+
+<main class="workflow-page">
+  <header class="resource-header">
+    <p class="resource-kicker">MRI Open Resources</p>
+    <h1>Quality Control Workflow</h1>
+    <p class="resource-intro">
+      Where quality control fits in the pipeline, and what to look for at each
+      inspection point. Raw data is inspected before any processing is run;
+      processed data is inspected again before it enters analysis. Both
+      inspections use the checklists below.
+    </p>
+  </header>
+
+  <section class="flow-section" aria-labelledby="flow-title">
+    <h2 id="flow-title" class="group-title">Pipeline</h2>
+
+    <div class="flow" role="img" aria-label="Workflow diagram: data acquisition leads to preprocessing, which leads to analysis. Raw data is inspected after acquisition. Processed data is inspected between preprocessing and analysis.">
+      <div class="stage stage-acq">
+        <span class="stage-number">1</span>
+        <h3>Data acquisition</h3>
+        <p>Scanning, DICOM export, conversion to NIfTI/BIDS.</p>
+      </div>
+
+      <div class="flow-arrow flow-arrow-1" aria-hidden="true"><span class="chevron"></span></div>
+
+      <div class="stage stage-pre">
+        <span class="stage-number">2</span>
+        <h3>Preprocessing</h3>
+        <p>Realignment, coregistration, normalization, distortion correction, smoothing.</p>
+      </div>
+
+      <div class="flow-arrow flow-arrow-2" aria-hidden="true"><span class="chevron"></span></div>
+
+      <div class="stage stage-ana">
+        <span class="stage-number">3</span>
+        <h3>Analysis</h3>
+        <p>Modelling, group statistics, reporting.</p>
+      </div>
+
+      <div class="inspect inspect-raw">
+        <p class="inspect-kicker">Inspection point A</p>
+        <h3>Inspect raw data</h3>
+        <p class="inspect-blurb">Before anything is processed. Exclusion criteria should already be written down at this stage.</p>
+        <div class="inspect-links">
+          <a class="resource-button primary" href="#checklist-raw-structural">Structural checklist</a>
+          <a class="resource-button primary" href="#checklist-raw-functional">Functional checklist</a>
+        </div>
+      </div>
+
+      <div class="inspect inspect-post">
+        <p class="inspect-kicker">Inspection point B</p>
+        <h3>Inspect processed data</h3>
+        <p class="inspect-blurb">After preprocessing, before the data enter any model. Failures here are usually fixable by rerunning with different settings.</p>
+        <div class="inspect-links">
+          <a class="resource-button primary" href="#checklist-post-structural">Structural checklist</a>
+          <a class="resource-button primary" href="#checklist-post-functional">Functional checklist</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="flow-note">
+      An inspection is not a gate you pass once. If preprocessing is rerun with
+      different settings, inspection point B is repeated. If a scan fails
+      inspection point A, note the reason against the pre-registered exclusion
+      criteria rather than deciding case by case.
+    </p>
+  </section>
+
+  <section class="checklist-controls" aria-labelledby="controls-title">
+    <h2 id="controls-title">Checklists</h2>
+    <p>
+      Tick items as you review each scan. Items marked
+      <span class="artifact-link demo">Examples</span> link to an artifact page
+      with annotated images — open it alongside the scan if you are unsure what
+      you are looking at. Nothing is saved between page loads, so use
+      <strong>Copy report</strong> to paste the result into your QC log before
+      you move on.
+    </p>
+    <div class="control-buttons">
+      <button id="copy-report" type="button" class="ctrl-button primary">Copy report</button>
+      <button id="reset-all" type="button" class="ctrl-button">Reset all</button>
+      <span id="copy-status" class="copy-status" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section class="checklist" id="checklist-raw-structural" data-label="Raw structural (T1w/T2w)">
+    <div class="checklist-head">
+      <div>
+        <p class="checklist-kicker">Inspection point A</p>
+        <h2>Raw structural (T1w / T2w)</h2>
+      </div>
+      <span class="progress" data-progress>0 / 0</span>
+    </div>
+    <p class="checklist-hint">Review in a viewer that lets you scroll all three planes. Some artifacts are obvious in one plane and invisible in another.</p>
+    <ul class="check-items">
+      <li>
+        <label><input type="checkbox"><span class="item-name">Head motion</span><span class="item-desc">Blurred tissue boundaries and concentric ringing bands. Severe ringing is grounds for exclusion.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Eye spillover</span><span class="item-desc">Bright streaks propagating from the orbits into brain tissue along the phase-encode direction.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/eye-spill' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Coil failure</span><span class="item-desc">Regional signal loss or noise amplification matching the footprint of one coil element.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Local artifact</span><span class="item-desc">Focal distortion, spikes, or dropout not attributable to any of the categories above. Includes dental and implant susceptibility effects.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/susceptibility-artifact' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Wrap-around (aliasing)</span><span class="item-desc">Anatomy outside the field of view folded onto the opposite edge of the image. Note whether it overlaps brain tissue.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/wraparound' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Ghosting</span><span class="item-desc">Faint displaced replicas of the head, offset along the phase-encode axis.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Intensity non-uniformity</span><span class="item-desc">Smooth bias field across the volume. Mild is expected and correctable; strong gradients can break segmentation downstream.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Temporal field variation</span><span class="item-desc">Banding or intensity drift consistent with scanner instability across the acquisition.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Reconstruction artifact</span><span class="item-desc">Anything introduced after acquisition: interpolation edges, failed denoising, vendor post-processing.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Hyperintensity or anatomical abnormality</span><span class="item-desc">Possible incidental finding. Do not diagnose. Follow the lab's incidental findings procedure and record that it was escalated.</span></label>
+      </li>
+      <li class="optional">
+        <label><input type="checkbox"><span class="item-name">Coverage and defacing <span class="opt-tag">optional</span></span><span class="item-desc">Confirm the whole brain including cerebellum is in the FoV, and that defacing has not removed brain tissue.</span></label>
+      </li>
+    </ul>
+  </section>
+
+  <section class="checklist" id="checklist-raw-functional" data-label="Raw functional (EPI)">
+    <div class="checklist-head">
+      <div>
+        <p class="checklist-kicker">Inspection point A</p>
+        <h2>Raw functional (EPI)</h2>
+      </div>
+      <span class="progress" data-progress>0 / 0</span>
+    </div>
+    <p class="checklist-hint">Play the run as a movie rather than scrolling volume by volume. Most functional artifacts are only visible in motion.</p>
+    <ul class="check-items">
+      <li>
+        <label><input type="checkbox"><span class="item-name">Volume count matches protocol</span><span class="item-desc">Compare the number of TRs against what the sequence was supposed to collect. A short run usually means an aborted or restarted acquisition.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Motion visible in the movie</span><span class="item-desc">Sudden jumps, slow drift, or breathing-locked oscillation. Note when in the run it happens.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Initial transient</span><span class="item-desc">Non-steady-state volumes at the start of the run. Confirm how many the pipeline discards and whether that is enough.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Field of view and coverage</span><span class="item-desc">Check the regions most often clipped: cerebellum, temporal poles, orbitofrontal cortex, vertex.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Susceptibility dropout</span><span class="item-desc">Signal voids near air-tissue boundaries. Irrecoverable dropout across a region of interest is grounds for exclusion.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/susceptibility-artifact' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Ghosting</span><span class="item-desc">N/2 ghosting along the phase-encode axis. Excessive ghosting is grounds for exclusion.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Eye spillover</span><span class="item-desc">Signal from eye movement leaking into frontal slices.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/eye-spill' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Coil failure</span><span class="item-desc">Regional dropout or elevated noise stable across the whole run.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Local artifact and spikes</span><span class="item-desc">Single-volume flashes, striping, or focal distortion. Spikes often appear as one bright frame in the movie.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Reconstruction and slice leakage</span><span class="item-desc">For multiband acquisitions, check for signal leaking between simultaneously excited slices. Excessive leakage is grounds for exclusion.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Slice-to-slice intensity variation</span><span class="item-desc">Alternating bright and dark slices, or a striping pattern in the through-plane direction.</span></label>
+      </li>
+    </ul>
+  </section>
+
+  <section class="checklist" id="checklist-post-structural" data-label="Processed structural">
+    <div class="checklist-head">
+      <div>
+        <p class="checklist-kicker">Inspection point B</p>
+        <h2>Processed structural</h2>
+      </div>
+      <span class="progress" data-progress>0 / 0</span>
+    </div>
+    <p class="checklist-hint">Check each transform by overlaying the result on its target, not by looking at the output alone.</p>
+    <ul class="check-items">
+      <li>
+        <label><input type="checkbox"><span class="item-name">Skull-stripping / brain mask</span><span class="item-desc">Easiest to judge on the T1w. Overlay the mask on the image in the same space, native or normalized, and check for both removed brain and retained skull, neck, or dura.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Tissue segmentation</span><span class="item-desc">Grey/white/CSF boundaries follow anatomy. Bias field problems from the raw checklist usually surface here first.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Normalization to template</span><span class="item-desc">Overlay the normalized anatomical on the template. Check ventricles, cortical outline, and the interhemispheric fissure.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Left-right orientation</span><span class="item-desc">Confirm no left-right flip was introduced by header handling or conversion. Cheap to check, expensive to miss.</span></label>
+      </li>
+    </ul>
+  </section>
+
+  <section class="checklist" id="checklist-post-functional" data-label="Processed functional">
+    <div class="checklist-head">
+      <div>
+        <p class="checklist-kicker">Inspection point B</p>
+        <h2>Processed functional</h2>
+      </div>
+      <span class="progress" data-progress>0 / 0</span>
+    </div>
+    <p class="checklist-hint">Read the pipeline's own report first, then verify the things it does not show you.</p>
+    <ul class="check-items">
+      <li>
+        <label><input type="checkbox"><span class="item-name">Spatial realignment</span><span class="item-desc">Inspect the motion parameter traces alongside the realigned movie. Large residual motion after realignment is a different problem from large motion before it.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Coregistration to anatomical</span><span class="item-desc">Overlay the mean functional on the subject's own T1w and check alignment at the ventricles and cortical edge.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Normalization</span><span class="item-desc">Overlay the normalized functional on the template. A functional that coregisters well but normalizes poorly usually means the anatomical normalization failed.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Outlying volumes</span><span class="item-desc">Review which TRs were flagged for scrubbing and how many survive. Record the count against the lab's retention threshold.</span></label>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Ghost-to-signal ratio, x</span><span class="item-desc">Compare against the lab threshold. Set this from the 95th percentile of your own sample rather than an external value, and record the threshold in use: <span class="threshold-slot">threshold: ______</span></span></label>
+        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Ghost-to-signal ratio, y</span><span class="item-desc">As above, computed separately for the y direction: <span class="threshold-slot">threshold: ______</span></span></label>
+        <a class="artifact-link" href="{{ art | append: '/aliasing-ghost' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Carpet plot and confound traces</span><span class="item-desc">Look for banding that tracks framewise displacement or DVARS. This catches problems the summary numbers average away.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/head-motion' | relative_url }}">Examples</a>
+      </li>
+      <li>
+        <label><input type="checkbox"><span class="item-name">Residual signal artifacts</span><span class="item-desc">Visual inspection of the processed movie for anything preprocessing introduced or failed to remove.</span></label>
+      </li>
+      <li class="optional">
+        <label><input type="checkbox"><span class="item-name">Unwarping / distortion correction <span class="opt-tag">optional</span></span><span class="item-desc">Where fieldmaps or reverse phase-encode data are available, check that stretching in frontal and temporal regions improved rather than worsened.</span></label>
+        <a class="artifact-link" href="{{ art | append: '/susceptibility-artifact' | relative_url }}">Examples</a>
+      </li>
+    </ul>
+  </section>
+
+  <p class="resource-footnote">
+    Artifact definitions follow the MRIQC and fMRIPrep quality control protocols.
+    See the <a href="{{ '/openResources/MRI/Artifact Detection and Rejection/' | relative_url }}">MRI QC resources page</a>
+    for the underlying papers and tool documentation, and
+    <a href="{{ art | append: '/head-motion' | relative_url }}">the MRI artifact pages</a> for annotated examples.
+  </p>
+</main>
+
+<style>
+  .workflow-page { max-width: 860px; margin: 0 auto; }
+  .resource-header { margin-bottom: 1.75rem; }
+  .resource-kicker {
+    margin-bottom: 0.35rem;
+    color: #4f76a1;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .resource-header h1 {
+    margin-bottom: 0.65rem;
+    font-size: clamp(1.8rem, 5vw, 2.65rem);
+    line-height: 1.12;
+  }
+  .resource-intro {
+    max-width: 700px;
+    color: #565652;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .group-title {
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #deddd8;
+    color: #3f3e3a;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ---- flow diagram ---- */
+  .flow-section { margin-bottom: 2.25rem; }
+  .flow {
+    display: grid;
+    gap: 1.4rem 0.6rem;
+    grid-template-columns: 1fr 40px 1fr 40px 1fr;
+    grid-template-areas:
+      "acq   ar1 pre   ar2   ana"
+      "insp1 .   .     insp2 insp2";
+    align-items: stretch;
+  }
+  .stage-acq { grid-area: acq; }
+  .flow-arrow-1 { grid-area: ar1; }
+  .stage-pre { grid-area: pre; }
+  .flow-arrow-2 { grid-area: ar2; }
+  .stage-ana { grid-area: ana; }
+  .inspect-raw { grid-area: insp1; }
+  .inspect-post { grid-area: insp2; }
+
+  .stage {
+    position: relative;
+    padding: 1rem 1.1rem 1.05rem;
+    border: 1px solid #deddd8;
+    border-top: 3px solid #4f76a1;
+    border-radius: 7px;
+    background: #fff;
+  }
+  .stage-number {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    background: #eaf1f8;
+    color: #244f78;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .stage h3 { margin-bottom: 0.3rem; font-size: 1rem; line-height: 1.3; }
+  .stage p { color: #66645f; font-size: 0.83rem; line-height: 1.5; }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chevron {
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-top: 2px solid #8f9aa5;
+    border-right: 2px solid #8f9aa5;
+    transform: rotate(45deg);
+  }
+
+  .inspect {
+    position: relative;
+    padding: 1rem 1.1rem 1.05rem;
+    border: 1px solid #cddcc9;
+    border-left: 4px solid #356c58;
+    border-radius: 7px;
+    background: #f4faf6;
+  }
+  .inspect::before {
+    content: "";
+    position: absolute;
+    top: -1.4rem;
+    left: 2rem;
+    width: 0;
+    height: 1.4rem;
+    border-left: 2px dashed #8fae9d;
+  }
+  .inspect-kicker {
+    margin-bottom: 0.25rem;
+    color: #356c58;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .inspect h3 { margin-bottom: 0.35rem; font-size: 1rem; }
+  .inspect-blurb {
+    margin-bottom: 0.75rem;
+    color: #55645b;
+    font-size: 0.83rem;
+    line-height: 1.55;
+  }
+  .inspect-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  .resource-button {
+    display: inline-block;
+    padding: 0.38rem 0.65rem;
+    border: 1px solid #c8c7c2;
+    border-radius: 4px;
+    color: #292927;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .resource-button:hover { border-color: #777570; }
+  .resource-button.primary {
+    border-color: #356c58;
+    background: #e7f3ee;
+    color: #205441;
+  }
+
+  .flow-note {
+    margin-top: 1.25rem;
+    padding: 0.8rem 1rem;
+    border-left: 4px solid #4f76a1;
+    background: #eaf1f8;
+    color: #3d4c59;
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+
+  /* ---- checklists ---- */
+  .checklist-controls {
+    margin: 2rem 0 1.25rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid #d7e1eb;
+    border-radius: 7px;
+    background: #f7fafc;
+  }
+  .checklist-controls h2 { margin-bottom: 0.4rem; font-size: 1.05rem; }
+  .checklist-controls p {
+    margin-bottom: 0.85rem;
+    color: #4c5a66;
+    font-size: 0.87rem;
+    line-height: 1.75;
+  }
+  .control-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .ctrl-button {
+    padding: 0.45rem 0.8rem;
+    border: 1px solid #aebdca;
+    border-radius: 4px;
+    background: #fff;
+    color: #292927;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .ctrl-button.primary {
+    border-color: #356c58;
+    background: #e7f3ee;
+    color: #205441;
+  }
+  .ctrl-button:hover { border-color: #777570; }
+  .copy-status { color: #356c58; font-size: 0.78rem; }
+
+  .checklist {
+    margin-bottom: 1.15rem;
+    padding: 1.15rem 1.2rem;
+    border: 1px solid #deddd8;
+    border-radius: 7px;
+    background: #fff;
+  }
+  .checklist:target {
+    border-color: #4f76a1;
+    box-shadow: 0 0 0 3px #eaf1f8;
+  }
+  .checklist-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .checklist-kicker {
+    margin-bottom: 0.15rem;
+    color: #356c58;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .checklist-head h2 { font-size: 1.08rem; line-height: 1.3; }
+  .progress {
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: #f0efeb;
+    color: #55544f;
+    font-size: 0.74rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .progress.complete { background: #e7f3ee; color: #25624d; }
+  .checklist-hint {
+    margin-bottom: 0.9rem;
+    color: #74726d;
+    font-size: 0.82rem;
+    font-style: italic;
+    line-height: 1.55;
+  }
+  .check-items { margin: 0; padding: 0; list-style: none; }
+  .check-items li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 0.5rem;
+    border-top: 1px solid #f0efeb;
+  }
+  .check-items li:first-child { border-top: 0; }
+  .check-items label {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.1rem 0.65rem;
+    padding: 0.6rem 0.2rem;
+    cursor: pointer;
+  }
+  .check-items label:hover { background: #fbfaf8; }
+  .check-items input {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0.15rem 0 0;
+    grid-row: 1 / 3;
+    accent-color: #356c58;
+  }
+  .item-name {
+    color: #292927;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .item-desc {
+    color: #66645f;
+    font-size: 0.83rem;
+    line-height: 1.55;
+  }
+  .check-items input:checked ~ .item-name { color: #75736e; text-decoration: line-through; }
+  .artifact-link {
+    align-self: start;
+    margin-top: 0.62rem;
+    padding: 0.16rem 0.5rem;
+    border: 1px solid #c9bfa0;
+    border-radius: 999px;
+    background: #faf7ef;
+    color: #6b5e3d;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .artifact-link:hover {
+    border-color: #9c8d63;
+    background: #f4eedf;
+    color: #574b30;
+  }
+  .artifact-link.demo { cursor: default; }
+  .opt-tag {
+    margin-left: 0.35rem;
+    padding: 0.05rem 0.35rem;
+    border-radius: 999px;
+    background: #f0efeb;
+    color: #75736e;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    vertical-align: 1px;
+  }
+  .threshold-slot {
+    display: inline-block;
+    margin-left: 0.15rem;
+    padding: 0.02rem 0.35rem;
+    border: 1px dashed #c8b78a;
+    border-radius: 3px;
+    background: #faf7ef;
+    color: #6b5e3d;
+    font-size: 0.78rem;
+  }
+
+  .resource-footnote {
+    margin-top: 1.4rem;
+    color: #74726d;
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .flow {
+      gap: 1rem;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "acq"
+        "insp1"
+        "ar1"
+        "pre"
+        "ar2"
+        "insp2"
+        "ana";
+    }
+    .flow-arrow { padding: 0.1rem 0; }
+    .chevron { transform: rotate(135deg); }
+    .inspect::before { display: none; }
+    .checklist { padding: 1rem; }
+    .resource-button { flex: 1 1 auto; text-align: center; }
+    .check-items li { grid-template-columns: 1fr; }
+    .artifact-link {
+      justify-self: start;
+      margin: 0 0 0.6rem 1.75rem;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var lists = Array.from(document.querySelectorAll(".checklist"));
+    var copyBtn = document.getElementById("copy-report");
+    var resetBtn = document.getElementById("reset-all");
+    var copyStatus = document.getElementById("copy-status");
+
+    function updateProgress(list) {
+      var boxes = list.querySelectorAll('input[type="checkbox"]');
+      var done = list.querySelectorAll('input[type="checkbox"]:checked').length;
+      var badge = list.querySelector("[data-progress]");
+      badge.textContent = done + " / " + boxes.length;
+      badge.classList.toggle("complete", done === boxes.length && boxes.length > 0);
+    }
+
+    function buildReport() {
+      var lines = ["MRI QC checklist", "Date: ____________  Subject/session: ____________", ""];
+      lists.forEach(function (list) {
+        lines.push(list.dataset.label);
+        Array.from(list.querySelectorAll(".check-items li")).forEach(function (item) {
+          var box = item.querySelector('input[type="checkbox"]');
+          var name = item.querySelector(".item-name").textContent.replace(/\s*optional\s*$/i, "").trim();
+          lines.push("  [" + (box.checked ? "x" : " ") + "] " + name);
+        });
+        lines.push("");
+      });
+      lines.push("Notes:");
+      return lines.join("\n");
+    }
+
+    lists.forEach(function (list) {
+      updateProgress(list);
+      list.addEventListener("change", function (e) {
+        if (e.target.type === "checkbox") updateProgress(list);
+      });
+    });
+
+    copyBtn.addEventListener("click", function () {
+      var text = buildReport();
+      var done = function (msg) {
+        copyStatus.textContent = msg;
+        window.setTimeout(function () { copyStatus.textContent = ""; }, 2500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () { done("Copied to clipboard"); },
+          function () { window.prompt("Copy the report below:", text); }
+        );
+      } else {
+        window.prompt("Copy the report below:", text);
+      }
+    });
+
+    resetBtn.addEventListener("click", function () {
+      lists.forEach(function (list) {
+        list.querySelectorAll('input[type="checkbox"]').forEach(function (box) {
+          box.checked = false;
+        });
+        updateProgress(list);
+      });
+      copyStatus.textContent = "Cleared";
+      window.setTimeout(function () { copyStatus.textContent = ""; }, 2000);
+    });
+  }());
+</script>
