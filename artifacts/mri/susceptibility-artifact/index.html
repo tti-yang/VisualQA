@@ -1,0 +1,246 @@
+---
+layout: default
+title: Susceptibility artifact
+---
+
+<section class="artifact-identification">
+  <h2>Susceptibility artifact</h2>
+
+  <p class="one-liner">
+    Where air meets tissue &mdash; above the sinuses, beside the ear canals &mdash;
+    the local magnetic field is warped. Gradient-echo EPI responds in two ways:
+    it loses signal outright (<em>dropout</em>) and it misplaces the signal that
+    survives along the phase-encode axis (<em>distortion</em>). Orbitofrontal
+    cortex and the anterior and inferior temporal lobes bear the worst of it.
+    Unlike most entries in this catalogue, this artifact is not a failure of the
+    scan; it is a property of the sequence and the skull, and it is present in
+    essentially every EPI dataset. The question is never whether it is there,
+    but whether it lands on the tissue you care about.
+  </p>
+
+  <figure class="qc-figure">
+    <img src="/VisualQA/assets/images/ofc_dropout_loop.gif" alt="Animation toggling a BOLD EPI overlay on and off over a T1-weighted image in FSLeyes. With the overlay visible, orbitofrontal cortex appears as a dark void; with it hidden, the underlying T1w shows intact tissue in the same location.">
+    <figcaption>
+      Single-subject task BOLD (<code>sub-01_ses-action01_task-action_run-01_bold</code>)
+      toggled on and off over the session T1w in FSLeyes, scrolling inferior to
+      superior. The tissue visible in the anatomical image simply has no
+      counterpart in the EPI: orbitofrontal cortex reads as a void. Brightness
+      and contrast were raised and overlay opacity reduced to make the boundary
+      legible; all three were held constant across frames. FSLeyes' warning about
+      differing fields of view is expected here &mdash; the two images are
+      deliberately unregistered, and alignment is not what this figure is about.
+      Data: participant <code>sub-01</code> of the Human Action Dataset
+      (HAD),<sup><a href="#ref-had-paper">1</a></sup> retrieved from OpenNeuro
+      <code>ds004488</code> v2.0.1.<sup><a href="#ref-had-data">2</a></sup>
+      Worth noting for the argument below: HAD is a video-viewing study whose
+      regions of interest sit in occipitotemporal cortex, far from the void
+      shown here. The dropout is severe and, for this dataset's purposes,
+      largely beside the point.
+    </figcaption>
+  </figure>
+
+  <aside class="qc-decision-box">
+    <h3>The call, in short</h3>
+    <ul>
+      <li><strong>Presence is not the finding; overlap is.</strong> Locate the void relative to your ROI. Dropout over OFC is fatal for a reward or olfaction study and irrelevant for a motor one.</li>
+      <li><strong>Dropout cannot be recovered downstream.</strong> No preprocessing step restores signal that was never encoded. Distortion, by contrast, is largely correctable given a fieldmap or opposite phase-encode acquisition &mdash; do not treat the two as one problem.</li>
+      <li>Extent consistent with the rest of the sample &rarr; document the coverage and move on. This is the expected state of gradient-echo EPI.</li>
+      <li>Markedly larger, asymmetric, or newly present relative to the same participant's other runs &rarr; investigate. Head rotation, sinus congestion, and orthodontic hardware all move the boundary.</li>
+      <li>A void with straight edges, or one that does not sit at a known air&ndash;tissue interface &rarr; this is probably not susceptibility. See below.</li>
+      <li><strong>Judge on the mean EPI, not a single volume</strong>, and judge before normalisation &mdash; warping to template smears the void's true extent.</li>
+    </ul>
+  </aside>
+
+  <h3>Not to be confused with</h3>
+
+  <ul>
+    <li><strong>Incomplete slab coverage</strong> &mdash; also produces missing tissue, but the boundary is a straight plane parallel to the slice stack, typically clipping the vertex or cerebellum. Susceptibility dropout has soft, anatomically shaped edges that fade rather than cut.</li>
+    <li><strong>Metal artifact</strong> &mdash; dental work, retainers, and implants produce the same physics at far greater magnitude, with gross geometric warping and often a bright rim adjacent to the void. Suspect this when the affected region is unusually large or sits near the mouth rather than above the orbits.</li>
+    <li><strong><a href="/VisualQA/artifacts/mri/head-motion/">Head motion</a></strong> &mdash; varies across the run; susceptibility dropout is stationary. If the dark region breathes over time, it is motion, or the interaction between motion and the field &mdash; not dropout alone.</li>
+    <li><strong>Coil failure or receive inhomogeneity</strong> &mdash; signal loss follows the geometry of the coil elements, usually a smooth peripheral falloff, not the skull base.</li>
+  </ul>
+
+  <h3>Dropout and distortion are one cause with two faces</h3>
+
+  <p>
+    Both arise from the same static field inhomogeneity, but through different
+    routes, and they respond to different remedies.
+  </p>
+
+  <p>
+    <strong>Dropout</strong> is intravoxel dephasing. Within a single voxel
+    straddling a field gradient, spins precess at different rates and cancel by
+    the time the echo is read. It scales with echo time and with voxel volume,
+    which is why shorter TE, thinner slices, and smaller voxels recover
+    signal.<sup><a href="#ref-ojemann">3</a></sup> Slice orientation matters too:
+    tilting the transverse slab towards coronal can substantially restore
+    orbitofrontal signal.<sup><a href="#ref-deichmann">4</a></sup> All of these are
+    acquisition-time decisions. Once the data exist, the signal is gone.
+  </p>
+
+  <p>
+    <strong>Distortion</strong> is mispositioning. Because EPI samples the
+    phase-encode direction with very low bandwidth, a local field offset
+    translates into a large spatial displacement along that one axis &mdash;
+    stretching in one place, piling up in another. This <em>is</em> retrospectively
+    correctable, either from an acquired fieldmap or from a pair of EPI images
+    with opposite phase-encode polarity.<sup><a href="#ref-andersson">5</a></sup>
+    Modern pipelines implement this as a standard step.<sup><a href="#ref-esteban">6</a></sup>
+  </p>
+
+  <p>
+    The practical consequence for QC: a run with correctable distortion and a run
+    with severe dropout over your ROI are not equally salvageable, and should not
+    receive the same rating.
+  </p>
+
+  <h3>Where to look</h3>
+
+  <p>
+    The clearest demonstration is the one in the figure above &mdash; load the
+    mean or a representative BOLD volume over the participant's T1w and toggle
+    the overlay. Tissue that is present in one image and absent in the other is
+    unambiguous, in a way that staring at the EPI alone is not. Hold brightness
+    and contrast fixed while toggling, or the demonstration proves nothing.
+  </p>
+
+  <p>
+    Beyond that: the <strong>temporal SNR map</strong> shows the affected regions
+    as low-value zones extending beyond the visually obvious void, and is the
+    better basis for a quantitative call. In fMRIPrep reports, the
+    <strong>BOLD-to-T1w registration panel</strong> with anatomical contours
+    overlaid makes the missing territory legible, and the
+    <strong>susceptibility distortion correction panel</strong> shows the
+    before/after for the distortion component
+    specifically.<sup><a href="#ref-provins">7</a></sup> If your ROI is small and
+    sits near a known interface, an explicit coverage check &mdash; what fraction
+    of ROI voxels exceed a signal threshold in each participant &mdash; is worth
+    more than any visual rating.
+  </p>
+
+  <p>
+    A slice mosaic makes the same point at a glance, and has the advantage of
+    showing the full inferior&ndash;superior extent rather than one plane at a
+    time. The MRIQC visual report generates exactly this view for every
+    functional run, which is where most people will first encounter the
+    artifact; the protocol of Hagen et&nbsp;al. is the reference for reading
+    those reports systematically.<sup><a href="#ref-hagen">8</a></sup>
+  </p>
+
+  <h3>Severity ladder</h3>
+
+  <table class="severity">
+    <thead>
+      <tr><th>Appearance</th><th>Call</th><th>Reasoning</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dropout limited to orbitofrontal cortex and temporal poles; ROI elsewhere</td>
+        <td><span class="qc-label qc-pass">Include</span></td>
+        <td>The expected baseline for gradient-echo EPI. Record the coverage; no action needed.</td>
+      </tr>
+      <tr>
+        <td>Visible distortion near sinuses, dropout comparable to the rest of the sample, fieldmap available</td>
+        <td><span class="qc-label qc-pass">Include</span></td>
+        <td>The correctable component is correctable. Verify the SDC panel actually improved alignment.</td>
+      </tr>
+      <tr>
+        <td>Void edge grazes the ROI, or ROI coverage is partial</td>
+        <td><span class="qc-label qc-warn">Uncertain</span></td>
+        <td>Quantify coverage rather than eyeballing it, and check whether the affected participants differ systematically by group.</td>
+      </tr>
+      <tr>
+        <td>Extent substantially exceeds the sample norm, or is grossly asymmetric</td>
+        <td><span class="qc-label qc-warn">Uncertain</span></td>
+        <td>Points to head position, hardware, or metal rather than ordinary anatomy. Identify the cause before deciding.</td>
+      </tr>
+      <tr>
+        <td>ROI sits inside the void</td>
+        <td><span class="qc-label qc-fail">Exclude</span></td>
+        <td>There is no measurement to analyse. Note that this excludes the <em>region</em>, not necessarily the participant &mdash; and if it holds across the sample, it is a design problem, not a QC one.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section class="references" aria-label="References">
+    <h3>References</h3>
+    <ol>
+      <li id="ref-had-paper">
+        Zhou, M., Gong, Z., Dai, Y., Wen, Y., Liu, Y., &amp; Zhen, Z. (2023).
+        A large-scale fMRI dataset for human action recognition.
+        <em>Scientific Data, 10</em>(1), 415.
+        <a href="https://doi.org/10.1038/s41597-023-02325-6">https://doi.org/10.1038/s41597-023-02325-6</a>
+      </li>
+      <li id="ref-had-data">
+        Zhou, M., Gong, Z., Dai, Y., Wen, Y., Liu, Y., &amp; Zhen, Z. (2026).
+        <em>A large-scale fMRI dataset for human action recognition</em>
+        [Dataset]. OpenNeuro, ds004488, v2.0.1.
+        <a href="https://doi.org/10.18112/openneuro.ds004488.v2.0.1">https://doi.org/10.18112/openneuro.ds004488.v2.0.1</a>
+      </li>
+      <li id="ref-ojemann">
+        Ojemann, J. G., Akbudak, E., Snyder, A. Z., McKinstry, R. C., Raichle, M. E.,
+        &amp; Conturo, T. E. (1997). Anatomic localization and quantitative analysis
+        of gradient refocused echo-planar fMRI susceptibility artifacts.
+        <em>NeuroImage, 6</em>(3), 156&ndash;167.
+        <a href="https://doi.org/10.1006/nimg.1997.0289">https://doi.org/10.1006/nimg.1997.0289</a>
+      </li>
+      <li id="ref-deichmann">
+        Deichmann, R., Gottfried, J. A., Hutton, C., &amp; Turner, R. (2003).
+        Optimized EPI for fMRI studies of the orbitofrontal cortex.
+        <em>NeuroImage, 19</em>(2), 430&ndash;441.
+        <a href="https://doi.org/10.1016/S1053-8119(03)00073-9">https://doi.org/10.1016/S1053-8119(03)00073-9</a>
+      </li>
+      <li id="ref-andersson">
+        Andersson, J. L. R., Skare, S., &amp; Ashburner, J. (2003). How to correct
+        susceptibility distortions in spin-echo echo-planar images: Application to
+        diffusion tensor imaging. <em>NeuroImage, 20</em>(2), 870&ndash;888.
+        <a href="https://doi.org/10.1016/S1053-8119(03)00336-7">https://doi.org/10.1016/S1053-8119(03)00336-7</a>
+      </li>
+      <li id="ref-esteban">
+        Esteban, O., Markiewicz, C. J., Blair, R. W., Moodie, C. A., Isik, A. I.,
+        Erramuzpe, A., Kent, J. D., Goncalves, M., DuPre, E., Snyder, M.,
+        Oya, H., Ghosh, S. S., Wright, J., Durnez, J., Poldrack, R. A., &amp;
+        Gorgolewski, K. J. (2019). fMRIPrep: A robust preprocessing pipeline for
+        functional MRI. <em>Nature Methods, 16</em>(1), 111&ndash;116.
+        <a href="https://doi.org/10.1038/s41592-018-0235-4">https://doi.org/10.1038/s41592-018-0235-4</a>
+      </li>
+      <li id="ref-provins">
+        Provins, C., MacNicol, E., Seeley, S. H., Hagmann, P., &amp; Esteban, O.
+        (2023). Quality control in functional MRI studies with MRIQC and fMRIPrep.
+        <em>Frontiers in Neuroimaging, 1</em>, 1073734.
+        <a href="https://doi.org/10.3389/fnimg.2022.1073734">https://doi.org/10.3389/fnimg.2022.1073734</a>
+      </li>
+      <li id="ref-hagen">
+        Hagen, M. P., Provins, C., MacNicol, E., Li, J. K., Gomez, T.,
+        Garcia, M., Seeley, S. H., Legarreta, J. H., Norgaard, M.,
+        Bissett, P. G., Poldrack, R. A., Rokem, A., &amp; Esteban, O. (2026).
+        Quality assessment and control of unprocessed anatomical, functional and
+        diffusion MRI of the human brain using MRIQC.
+        <em>Nature Protocols</em>.
+        <a href="https://doi.org/10.1038/s41596-026-01352-y">https://doi.org/10.1038/s41596-026-01352-y</a>
+      </li>
+    </ol>
+  </section>
+</section>
+
+<style>
+  .qc-figure { margin: 1.5rem 0; }
+  .qc-figure > img { width: 100%; height: auto; display: block; }
+  .qc-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .qc-pair img, .qc-figure video { width: 100%; height: auto; display: block; background: #000; }
+  .qc-pair-labels { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .qc-label { display: inline-block; font-size: 0.8rem; padding: 0.15rem 0.5rem; }
+  .qc-pass { background: #e1f5ee; color: #085041; }
+  .qc-warn { background: #fdf4e3; color: #6b4c14; }
+  .qc-fail { background: #fceded; color: #791f1f; }
+  .qc-figure figcaption { font-size: 0.9rem; color: #5f5e5a; margin-top: 0.5rem; }
+  .qc-decision-box { border-left: 3px solid #888780; padding: 0.75rem 1rem; background: #f1efe8; }
+  .severity { border-collapse: collapse; width: 100%; font-size: 0.9rem; margin: 1rem 0; }
+  .severity th, .severity td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-bottom: 1px solid #ddd; }
+  .references { margin-top: 2.5rem; font-size: 0.9rem; }
+  .references ol { padding-left: 1.25rem; }
+  .references li { margin-bottom: 0.5rem; line-height: 1.5; }
+  @media (max-width: 640px) {
+    .qc-pair, .qc-pair-labels { grid-template-columns: 1fr; }
+  }
+</style>
